@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-type',
@@ -11,7 +12,7 @@ export class TypeComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
   entry: string;
-
+  keyword;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 

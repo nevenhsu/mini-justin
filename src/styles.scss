@@ -2,6 +2,8 @@
 @import url('//fonts.googleapis.com/earlyaccess/notosanstc.css');// overwrite bootstrap variables
 @import "app/shared/_custom-variables";
 
+// import material theme for virtual keyboard
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 // overwrite bootstrap variables
 $body-bg: $color-white;

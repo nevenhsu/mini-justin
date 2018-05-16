@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatKeyboardModule } from '@ngx-material-keyboard/core';
+import { MatButtonModule } from '@angular/material';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -32,10 +34,13 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     BrowserAnimationsModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+      // Material modules
+      MatButtonModule,
+      MatKeyboardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

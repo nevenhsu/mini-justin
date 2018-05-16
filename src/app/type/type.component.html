@@ -1,0 +1,8 @@
+
+<form #form="ngForm">
+    <input ngModel #keyword="ngModel" name="keyword" [matKeyboard]="'en-US'" [isDebug]="true" [autofocus]="true" />
+</form>
+<mat-keyboard></mat-keyboard>
+<p>
+    {{keyword.value}}
+</p>
