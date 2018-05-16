@@ -1,0 +1,121 @@
+// import fonts
+@import url('//fonts.googleapis.com/earlyaccess/notosanstc.css');// overwrite bootstrap variables
+@import "app/shared/_custom-variables";
+
+
+// overwrite bootstrap variables
+$body-bg: $color-white;
+$grid-gutter-width: 24px;
+$btn-border-width: 0;
+$font-family-sans-serif: 'Noto Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+// import only the Bootstrap modules you need, e.g.
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/buttons";
+@import "../node_modules/bootstrap/scss/utilities";
+
+
+// global css
+.font-body {
+  font-family: 'Noto Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 0;
+}
+
+.font-keyboard {
+  font-family: 'Roboto', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 0;
+}
+
+.color-primary {
+  color: $color-primary !important;
+}
+
+.color-white {
+  color: $color-white !important;
+}
+
+.color-black {
+  color: $color-black !important;
+}
+
+
+// font size
+h1 {
+  font-size: 42px;
+}
+h2 {
+  font-size: 38px;
+}
+h3 {
+  font-size: 32px;
+  line-height: 43px;
+  letter-spacing: 0.17px;
+}
+h4 {
+  font-size: 27px;
+}
+p {
+  font-size: 21px;
+}
+
+
+// utilities
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  -webkit-transform: translate3d(-50%, -50%, 0);
+}
+
+.background-cover {
+  background: {
+    size: cover;
+    repeat: no-repeat;
+    position: center;
+  }
+}
+
+/*
+  background: 0
+  dropdown: 1000
+  sticky: 1020
+  fixed: 1030
+  modal-backdrop: 1040
+  modal: 1050
+  popover: 1060
+  tooltip: 1070
+*/
+
+.z-0 {
+  z-index: 0;
+}
+.z-1000 {
+  z-index: 1000;
+}
+.z-1020 {
+  z-index: 1020;
+}
+.z-1030 {
+  z-index: 1030;
+}
+.z-1040 {
+  z-index: 1040;
+}
+.z-1050 {
+  z-index: 1050;
+}
+.z-1060 {
+  z-index: 1060;
+}
+.z-1070 {
+  z-index: 1070;
+}
+

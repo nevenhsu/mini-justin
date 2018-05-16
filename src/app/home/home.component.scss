@@ -1,0 +1,24 @@
+.background {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent url("../../assets/images/bg-home.png");
+}
+
+.logo {
+  margin-top: 6rem;
+  margin-bottom: 6.75rem;
+}
+
+.btn-img {
+  margin-bottom: 5.25rem;
+}
+
+.btn-text {
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
