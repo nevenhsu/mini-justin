@@ -1,8 +1,29 @@
+<div class="background-pattern absolute-center background-cover z-0"></div>
 
-<form #form="ngForm">
-    <input ngModel #keyword="ngModel" name="keyword" [matKeyboard]="'en-US'" [isDebug]="true" [autofocus]="true" />
-</form>
-<mat-keyboard></mat-keyboard>
-<p>
-    {{keyword.value}}
-</p>
+<app-nav (tapLeftBtn)="tapLeftBtn($event)"
+         [title]="title"
+         [isShowLeftBtn]="true"
+          class="nav"></app-nav>
+
+<div *ngIf="!isShowChoose; else choose" class="overflow-hidden z-1000">
+  <form #form="ngForm" class="form text-center position-relative row">
+    <input #keyword="ngModel"
+           ngModel
+           required
+           name="keyword"
+           [matKeyboard]="'en-US'"
+           (enterClick)="onClickEnter()"
+           (blur)="onBlur($event)"
+           autofocus="autofocus"
+           class="keyword col-6 offset-3 text-center"/>
+    <p *ngIf="keyword.value === ''" class="placeholder position-absolute absolute-center">Type in Instagram username</p>
+  </form>
+</div>
+
+<ng-template #choose>
+  <app-choose class="position-relative z-1000" [account]="account"></app-choose>
+</ng-template>
+
+
+
+

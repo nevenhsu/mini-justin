@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SearchService } from 'shared/search.service';
 
 @Component({
   selector: 'app-home',
@@ -7,14 +8,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  hashtag: Hashtag;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private searchService: SearchService) { }
 
   ngOnInit() {
+    this.getHashTag();
+  }
+
+  async getHashTag() {
+    this.hashtag = await this.searchService.getHashTag('memopresso').then(res => {
+      if (res['status'] === 'ok') {
+        return res['hashtag'];
+      }
+    });
   }
 
   goToType(entry: string) {
-    this.router.navigate(['type'], { queryParams: { entry: entry }});
+    switch (entry) {
+      case 'ig':
+        this.router.navigate(['type'], { queryParams: {entry: entry}});
+        break;
+      case 'tag':
+        if (!this.hashtag) {return; }
+        this.router.navigate(['select'], {queryParams: {tag: this.hashtag.name}});
+        break;
+      default:
+        break;
+    }
   }
 
 }

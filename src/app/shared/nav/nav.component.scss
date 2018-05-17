@@ -1,0 +1,17 @@
+@import "../_custom-variables";
+
+nav {
+  width: 100vw;
+  height: 110px;
+  padding: 1.5rem 2.5rem;
+  background-image: $gradient-primary;
+}
+
+.btn-left {
+  border: none;
+  background-color: transparent;
+}
+
+.title {
+  white-space: nowrap;
+}
