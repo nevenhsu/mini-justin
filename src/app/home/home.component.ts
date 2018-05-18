@@ -22,17 +22,19 @@ export class HomeComponent implements OnInit {
       if (res['status'] === 'ok') {
         return res['hashtag'];
       }
+      return '';
     });
+    localStorage.setItem('hashtagName', this.hashtag.name);
   }
 
-  goToType(entry: string) {
+  goToNext(entry: string) {
     switch (entry) {
       case 'ig':
         this.router.navigate(['type'], { queryParams: {entry: entry}});
         break;
       case 'tag':
         if (!this.hashtag) {return; }
-        this.router.navigate(['select'], {queryParams: {tag: this.hashtag.name}});
+        this.router.navigate(['select'], {queryParams: {entry: entry, query: this.hashtag.name}});
         break;
       default:
         break;

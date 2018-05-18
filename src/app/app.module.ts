@@ -14,7 +14,7 @@ import {TypeComponent} from './type/type.component';
 import {SelectComponent} from './select/select.component';
 import {PreviewComponent} from './preview/preview.component';
 import {NavComponent} from 'shared/nav/nav.component';
-import {ChooseComponent} from './type/choose/choose.component';
+import {ChooseIgComponent} from './type/choose-ig/choose-ig.component';
 
 import {AutofocusDirective} from 'shared/autofocus.directive';
 import {SearchService} from 'shared/search.service';
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     PreviewComponent,
     AutofocusDirective,
     NavComponent,
-    ChooseComponent,
+    ChooseIgComponent,
   ],
   imports: [
     BrowserModule,

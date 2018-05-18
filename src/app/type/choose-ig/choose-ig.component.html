@@ -1,6 +1,8 @@
 <div class="row m-0">
   <div class="row col-10 offset-1">
-    <div *ngFor="let user of users" class="user row col-4">
+    <div (tap)="onTapAccount(user)"
+         *ngFor="let user of users"
+         class="user row col-4">
       <div class="photo col-4 p-0 pr-2"><img width="100%" [src]="user.profile_pic_url" /></div>
       <div class="col-8">
         <h4 class="name color-black pt-3">{{ user.full_name }}</h4>

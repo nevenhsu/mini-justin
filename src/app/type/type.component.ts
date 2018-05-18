@@ -1,6 +1,7 @@
-import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SearchService } from 'shared/search.service';
 
 @Component({
   selector: 'app-type',
@@ -9,21 +10,23 @@ import { Subscription } from 'rxjs';
 })
 export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('keyword', {read: ElementRef}) keyword;
+  title: string;
   sub: Subscription;
   entry: string;
-  account: string;
-  title: string;
+  query: string;
+
   isShowChoose: boolean;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private searchService: SearchService,
               private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
       this.entry = params['entry'];
-      this.account = params['account'];
-      this.checkEntry();
+      this.query = params['query'];
+      this.checkParams();
     });
   }
 
@@ -39,24 +42,25 @@ export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  checkEntry() {
+  checkParams() {
     // if no entry then return home
     if (!this.entry) {
       this.router.navigate(['']);
     }
 
-    // if wrong entry then set default
+    // if wrong entry then return home
+    // for now entry tag redirect to select url
     switch (this.entry) {
       case 'ig':
-        this.title = this.account ? 'Choose account' : 'Type in Instagram username';
-        this.isShowChoose = !!this.account;
+        this.title = this.query ? 'Choose account' : 'Type in Instagram username';
+        this.isShowChoose = !!this.query;
         break;
       case 'tag':
-        this.title = 'Type in Instagram hashtag';
+        this.router.navigate(['select'], {queryParams: {entry: this.entry, query: sessionStorage.getItem('hashtagName')}});
         break;
       default:
         this.entry = 'tag';
-        this.title = 'Type in Instagram hashtag';
+        this.router.navigate(['']);
     }
   }
 
@@ -69,7 +73,7 @@ export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   onBlur() {
-    // set to focus
+    // force to focus
     this.keyword.nativeElement.focus();
   }
 
@@ -77,16 +81,28 @@ export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
     const VALUE = this.keyword.nativeElement.value;
     if (!VALUE) {return; }
 
-    // Choose account or select photo
+    // go to choose account or select photo
+    // now case tag: is ignored
     switch (this.entry) {
       case 'ig':
-        this.router.navigate(['type'], {queryParams: {entry: 'ig', account: VALUE}});
+        sessionStorage.setItem('keyword', VALUE);
+        this.router.navigate(['type'], {queryParams: {entry: this.entry, query: VALUE}});
         break;
       case 'tag':
-        this.router.navigate(['select'], {queryParams: {tag: VALUE}});
+        this.router.navigate(['select'], {queryParams: {entry: this.entry, query: VALUE}});
         break;
       default:
-        this.router.navigate(['select'], {queryParams: {tag: VALUE}});
+        this.router.navigate(['select'], {queryParams: {entry: this.entry, query: VALUE}});
+    }
+  }
+
+  onTapAccount(user: User) {
+    // save user
+    localStorage.setItem('user', JSON.stringify(user));
+
+    // entry is ig
+    if (user && user.pk) {
+      this.router.navigate(['select'], {queryParams: {entry: this.entry, query: user.pk}});
     }
   }
 

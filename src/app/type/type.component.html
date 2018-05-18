@@ -21,7 +21,9 @@
 </div>
 
 <ng-template #choose>
-  <app-choose class="position-relative z-1000" [account]="account"></app-choose>
+  <app-choose-ig (tapAccount)="onTapAccount($event)"
+              [query]="query"
+              class="position-relative z-1000"></app-choose-ig>
 </ng-template>
 
 
