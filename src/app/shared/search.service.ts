@@ -9,6 +9,8 @@ export class SearchService {
   private apiHashtagImage = 'assets/image-hashtag.json';
   private apiIdImage = 'assets/image-id.json';
 
+  public images: Array<PostImage> = [];
+
   static getSafe(fn) {
     try {
       return fn();
@@ -104,8 +106,6 @@ export class SearchService {
           return reject('wrong api url');
         } );
     }
-
-
   }
 
 }

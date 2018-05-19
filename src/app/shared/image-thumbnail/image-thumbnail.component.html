@@ -1,0 +1,15 @@
+<div class="container-image position-relative">
+  <img class="image position-absolute absolute-center" [src]="image.thumbnail_src"/>
+
+  <div class="container-cal text-center position-absolute absolute-center">
+    <ng-container *ngIf="quantity">
+      <span (tap)="remove()" ><img width="22.5%" height="22.5%" src="assets/images/icons/button-minus.svg"/></span>
+      <span class="quantity color-white d-inline-block">{{ quantity }}</span>
+      <span (tap)="add()"><img width="22.5%" height="22.5%" src="assets/images/icons/button-plus.svg"/></span>
+    </ng-container>
+  </div>
+
+  <div *ngIf="!quantity"
+       (tap)="add()"
+       class="cover absolute-center position-absolute"></div>
+</div>

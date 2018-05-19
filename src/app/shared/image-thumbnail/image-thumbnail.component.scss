@@ -1,0 +1,32 @@
+.container-image {
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.container-cal {
+  width: 100%;
+  top: 47.5%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  -webkit-transform: translate3d(-50%, -50%, 0);
+}
+
+.quantity {
+  width: 33%;
+  font-size: 45px;
+  font-weight: 600;
+  line-height: 63px;
+  letter-spacing: 0.55px;
+  transform: translateY(16%);
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+}

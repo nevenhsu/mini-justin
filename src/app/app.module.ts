@@ -19,6 +19,7 @@ import {ChooseIgComponent} from './type/choose-ig/choose-ig.component';
 import {AutofocusDirective} from 'shared/autofocus.directive';
 import {SearchService} from 'shared/search.service';
 import {HttpClientModule} from '@angular/common/http';
+import { ImageThumbnailComponent } from './shared/image-thumbnail/image-thumbnail.component';
 
 
 const appRoutes: Routes = [
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
     AutofocusDirective,
     NavComponent,
     ChooseIgComponent,
+    ImageThumbnailComponent,
   ],
   imports: [
     BrowserModule,

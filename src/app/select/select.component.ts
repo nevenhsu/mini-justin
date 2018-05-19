@@ -17,6 +17,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   query: string;
   name: string;
   picUrl: string;
+  totalImages = 0;
   images: Array<PostImage> = [];
   postsData: PostsData;
   // for refresh browser or return page
@@ -118,6 +119,11 @@ export class SelectComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+  }
+
+  cal(value: number) {
+    this.totalImages += value;
+    console.log(this.totalImages);
   }
 
 }
