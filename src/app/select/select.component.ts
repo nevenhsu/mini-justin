@@ -10,19 +10,17 @@ import { Subscription } from 'rxjs';
 })
 
 export class SelectComponent implements OnInit, OnDestroy {
-  // TODO: recheck user info
+  // TODO: get user info
 
   sub: Subscription;
   entry: string;
   query: string;
   name: string;
   picUrl: string;
-  totalImages = 0;
-  images: Array<PostImage> = [];
-  postsData: PostsData;
-  // for refresh browser or return page
-  user?: User;
-  hashtagName?: string;
+  images: Array<PostImage> = []; // store all images
+  postsData: PostsData; // store the newest data for updating view
+  user?: User; // get selected user name from local storage
+  hashtagName?: string; // get hashtag from local storage
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -59,6 +57,8 @@ export class SelectComponent implements OnInit, OnDestroy {
       default:
         this.router.navigate(['']);
     }
+    this.searchService._images = [];
+    this.searchService.updateImages();
   }
 
   setPage() {
@@ -75,9 +75,11 @@ export class SelectComponent implements OnInit, OnDestroy {
         }
         break;
       case 'tag':
+        console.log( localStorage.getItem('hashtagName'));
         this.hashtagName = localStorage.getItem('hashtagName');
         // if query doesn't match to local data then go to prev page
         if (this.query === this.hashtagName) {
+          this.name = this.hashtagName;
           this.picUrl = 'assets/images/tag-circle.png';
           this.getPostImages();
         } else {
@@ -98,8 +100,6 @@ export class SelectComponent implements OnInit, OnDestroy {
         this.postsData = await this.searchService.getPostsData('id', VARIABLES).then((data: PostsData) => {
           if (data.status === 'ok') {
             return data;
-          } else {
-            console.log('status is not ok');
           }
         });
         // add images
@@ -110,8 +110,6 @@ export class SelectComponent implements OnInit, OnDestroy {
         this.postsData = await this.searchService.getPostsData('tag', VARIABLES2).then((data: PostsData) => {
           if (data.status === 'ok') {
             return data;
-          } else {
-            console.log('status is not ok');
           }
         });
         this.images = this.images.concat(this.postsData.images);
@@ -121,9 +119,11 @@ export class SelectComponent implements OnInit, OnDestroy {
     }
   }
 
-  cal(value: number) {
-    this.totalImages += value;
-    console.log(this.totalImages);
+  reachBottom(event: boolean) {
+    const TOTALIMAGES = SearchService.getSafe(() => this.postsData.images.length);
+    if (event && TOTALIMAGES > 0) {
+      this.getPostImages();
+    }
   }
 
 }

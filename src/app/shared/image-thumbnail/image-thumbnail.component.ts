@@ -14,21 +14,26 @@ export class ImageThumbnailComponent implements OnInit {
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
+    this.searchService._images.forEach(image => {
+      if (image.id === this.image.id) {
+        this.quantity += 1;
+      }
+    });
   }
 
   add() {
     this.quantity += 1;
-    let i = this.searchService.images.indexOf(this.image);
+    let i = this.searchService._images.indexOf(this.image);
     i = i >= 0 ? i : 0;
-    this.searchService.images.splice(i, 0, this.image);
-    this.cal.emit(1);
+    this.searchService._images.splice(i, 0, this.image);
+    this.searchService.updateImages();
   }
 
   remove() {
     if (this.quantity === 0) {return; }
     this.quantity -= 1;
-    this.searchService.images.splice(this.searchService.images.indexOf(this.image), 1);
-    this.cal.emit(-1);
+    this.searchService._images.splice(this.searchService._images.indexOf(this.image), 1);
+    this.searchService.updateImages();
   }
-
 }
+

@@ -26,6 +26,11 @@ $font-family-sans-serif: 'Noto Sans', 'Noto Sans TC', -apple-system, BlinkMacSys
 
 
 // global css
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 a:focus,
 button:focus,
 input:focus,
@@ -68,6 +73,10 @@ textarea:focus {
 
 .color-grey-light {
   color: $color-grey-light !important;
+}
+
+.color-grey {
+  color: $color-grey !important;
 }
 
 .background-pattern {

@@ -1,0 +1,20 @@
+<div class="row m-0">
+    <div class="wrapping col-6">
+        <div class="content-background">
+            <div class="contents">
+                <span>
+                    <h1 class="color-primary d-inline mr-2">{{ total }}</h1>
+                    <h3 class="text color-grey-light  d-inline">pics</h3>
+                </span>
+                <span><h3 class="text color-grey-light">selected</h3></span>
+                <button (tap)="goNext()"
+                        [class.btn-disable]="!isActivated"
+                        class="btn-next d-block text-center mt-4"
+                        [disabled]="!isActivated"
+                >
+                    <h1 class="btn-text color-white">Next</h1>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

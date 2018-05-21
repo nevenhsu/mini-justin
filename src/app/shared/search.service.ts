@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+
 
 @Injectable()
 export class SearchService {
@@ -9,7 +11,9 @@ export class SearchService {
   private apiHashtagImage = 'assets/image-hashtag.json';
   private apiIdImage = 'assets/image-id.json';
 
-  public images: Array<PostImage> = [];
+  private subject: Subject<PostImage[]> = new Subject();
+  public _images: Array<PostImage> = [];
+  public images = this.subject.asObservable();
 
   static getSafe(fn) {
     try {
@@ -106,6 +110,10 @@ export class SearchService {
           return reject('wrong api url');
         } );
     }
+  }
+
+  updateImages() {
+    this.subject.next(this._images);
   }
 
 }
