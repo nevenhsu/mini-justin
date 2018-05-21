@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from 'shared/search.service';
 import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-counter',
@@ -16,7 +16,8 @@ export class CounterComponent implements OnInit, OnDestroy {
   }
 
   constructor(private searchService: SearchService,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -32,6 +33,7 @@ export class CounterComponent implements OnInit, OnDestroy {
 
   goNext() {
     if (this.isActivated) {
+      this.searchService.savePrevUrl(this.route);
       this.router.navigate(['preview']);
     }
   }

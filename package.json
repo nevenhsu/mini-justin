@@ -26,6 +26,8 @@
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "konva": "^2.1.3",
+    "ng2-konva": "^2.0.6",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.1.0",
     "web-animations-js": "^2.3.1",

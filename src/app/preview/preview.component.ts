@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SearchService } from 'shared/search.service';
 
 @Component({
   selector: 'app-preview',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private searchService: SearchService) { }
 
   ngOnInit() {
   }
 
+  goPrev() {
+    const URL = this.searchService.prevUrl.url;
+    const QUERY = this.searchService.prevUrl.queryParams;
+    this.router.navigate([URL], {queryParams: QUERY});
+  }
 }

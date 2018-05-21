@@ -56,15 +56,15 @@ export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.isShowChoose = !!this.query;
         break;
       case 'tag':
+        this.searchService.prevUrl = {url: ''};
         this.router.navigate(['select'], {queryParams: {entry: this.entry, query: sessionStorage.getItem('hashtagName')}});
         break;
       default:
-        this.entry = 'tag';
         this.router.navigate(['']);
     }
   }
 
-  tapLeftBtn() {
+  goPrevPage() {
     if (this.isShowChoose) {
       this.router.navigate(['type'], { queryParams: {entry: 'ig'}});
     } else {

@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ImageThumbnailComponent } from 'shared/image-thumbnail/image-thumbnail.component';
 import { ScrollTrackerDirective } from 'shared/scroll-tracker.directive';
 import { CounterComponent } from './select/counter/counter.component';
+import { PhotosComponent } from './preview/photos/photos.component';
+import { KonvaModule } from 'ng2-konva';
 
 
 const appRoutes: Routes = [
@@ -46,6 +48,7 @@ const appRoutes: Routes = [
     ImageThumbnailComponent,
     ScrollTrackerDirective,
     CounterComponent,
+    PhotosComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ const appRoutes: Routes = [
     // Material modules
     MatButtonModule,
     MatKeyboardModule,
+    KonvaModule
   ],
   providers: [
     SearchService

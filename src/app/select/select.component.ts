@@ -44,11 +44,11 @@ export class SelectComponent implements OnInit, OnDestroy {
       this.router.navigate(['']);
     }
     if (!this.query) {
-      this.goToPrev();
+      this.goPrev();
     }
   }
 
-  goToPrev() {
+  goPrev() {
     switch (this.entry) {
       case 'ig':
         const KEYWORD = sessionStorage.getItem('keyword');
@@ -71,7 +71,7 @@ export class SelectComponent implements OnInit, OnDestroy {
           this.picUrl = this.user.profile_pic_url;
           this.getPostImages();
         } else {
-          this.goToPrev();
+          this.goPrev();
         }
         break;
       case 'tag':
@@ -83,7 +83,7 @@ export class SelectComponent implements OnInit, OnDestroy {
           this.picUrl = 'assets/images/tag-circle.png';
           this.getPostImages();
         } else {
-          this.goToPrev();
+          this.goPrev();
         }
         break;
       default:

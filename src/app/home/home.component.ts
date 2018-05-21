@@ -8,6 +8,8 @@ import { SearchService } from 'shared/search.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  // TODO: restructure return url on service
+
   hashtag: Hashtag;
 
   constructor(private router: Router,
@@ -27,7 +29,7 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('hashtagName', this.hashtag.name);
   }
 
-  goToNext(entry: string) {
+  goNext(entry: string) {
     switch (entry) {
       case 'ig':
         this.router.navigate(['type'], { queryParams: {entry: entry}});

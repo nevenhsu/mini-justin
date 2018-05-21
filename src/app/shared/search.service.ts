@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Injectable()
@@ -11,9 +12,12 @@ export class SearchService {
   private apiHashtagImage = 'assets/image-hashtag.json';
   private apiIdImage = 'assets/image-id.json';
 
+  // TODO: use BehaviorSubject instead
   private subject: Subject<PostImage[]> = new Subject();
   public _images: Array<PostImage> = [];
   public images = this.subject.asObservable();
+
+  public prevUrl: {url: string, queryParams?: Object};
 
   static getSafe(fn) {
     try {
@@ -114,6 +118,10 @@ export class SearchService {
 
   updateImages() {
     this.subject.next(this._images);
+  }
+
+  savePrevUrl(route: ActivatedRoute) {
+    this.prevUrl = { url: route.snapshot.routeConfig.path, queryParams: route.snapshot.queryParams};
   }
 
 }

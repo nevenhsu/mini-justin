@@ -1,3 +1,9 @@
-<p>
-  preview works!
-</p>
+<div class="background-pattern absolute-center background-cover z-0 position-fixed"></div>
+
+<app-nav (tapLeftBtn)="goPrev()"
+         [title]="'Preview'"
+         [isShowLeftBtn]="true"
+         class="nav"></app-nav>
+
+
+<app-photos></app-photos>
