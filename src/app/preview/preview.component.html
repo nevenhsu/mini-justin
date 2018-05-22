@@ -5,5 +5,17 @@
          [isShowLeftBtn]="true"
          class="nav"></app-nav>
 
+<button class="testbtn z-1040" (click)="getImgData()">DATATA</button>
 
-<app-photos></app-photos>
+<div class="carousel">
+  <div #photos *ngFor="let images of imagesArray"
+       class="images row m-0">
+    <div *ngFor="let img of images;index as i"
+         [class.image-border]="i % 2 == 0"
+         class="container-image image-border col-6">
+        <app-photos [imageURL]="img.display_url"></app-photos>
+    </div>
+  </div>
+</div>
+
+

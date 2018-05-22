@@ -24,6 +24,7 @@ import { ScrollTrackerDirective } from 'shared/scroll-tracker.directive';
 import { CounterComponent } from './select/counter/counter.component';
 import { PhotosComponent } from './preview/photos/photos.component';
 import { KonvaModule } from 'ng2-konva';
+import { ImageDimensionDirective } from 'shared/image-dimension.directive';
 
 
 const appRoutes: Routes = [
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     ScrollTrackerDirective,
     CounterComponent,
     PhotosComponent,
+    ImageDimensionDirective,
   ],
   imports: [
     BrowserModule,

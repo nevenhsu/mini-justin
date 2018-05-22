@@ -1,0 +1,27 @@
+.container-image {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.image {
+  /* Position the image in the middle of its container. */
+  margin: auto;
+  position: absolute;
+  display: block;
+  top: -9999px;
+  right: -9999px;
+  bottom: -9999px;
+  left: -9999px;
+}
+
+.image-horizon {
+  height: 100%;
+  min-width: 100%;
+}
+
+.image-portrait {
+  min-height: 100%;
+  width: 100%;
+}

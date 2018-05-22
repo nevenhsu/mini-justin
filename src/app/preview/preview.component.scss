@@ -1,0 +1,29 @@
+@import "../shared/custom-variables";
+
+
+
+.images {
+  width: 644px;
+  height: 436px;
+  border: 1px solid $color-grey-light2;
+  background-color: $color-white;
+}
+
+.container-image {
+  height: 100%;
+  padding: 1rem 1rem 1rem 1rem;
+}
+
+.image-border {
+  border-right: 1px solid $color-grey-light2;
+}
+
+.testbtn {
+  position: absolute;
+  right: 0;
+  width: 120px;
+  height: 48px;
+  background-color: #37474F;
+  color: white;
+}
+
