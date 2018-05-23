@@ -16,6 +16,7 @@ export class SearchService {
   private subject: Subject<PostImage[]> = new Subject();
   public _images: Array<PostImage> = [];
   public images = this.subject.asObservable();
+  public imagesData: string[] = [];
 
   public prevUrl: {url: string, queryParams?: Object};
 

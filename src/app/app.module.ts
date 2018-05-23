@@ -26,10 +26,12 @@ import { SearchService } from 'shared/search.service';
 import { ScrollTrackerDirective } from 'shared/scroll-tracker.directive';
 import { AutofocusDirective } from 'shared/autofocus.directive';
 import { ImageDimensionDirective } from 'shared/image-dimension.directive';
+import { PrintComponent } from './print/print.component';
 
 
 
 const appRoutes: Routes = [
+  {path: 'print', component: PrintComponent},
   {path: 'preview', component: PreviewComponent},
   {path: 'select', component: SelectComponent},
   {path: 'type', component: TypeComponent},
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
     CounterComponent,
     PhotosComponent,
     ImageDimensionDirective,
+    PrintComponent,
   ],
   imports: [
     BrowserModule,

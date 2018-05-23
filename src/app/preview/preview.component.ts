@@ -16,7 +16,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
   sub: Subscription;
   imagesURL: PostImage[][] = [];
   photosReady: number;
-  imagesOutput: string[] = []; // output images data
+  imagesData: string[] = []; // output images data
 
 
   constructor(private router: Router, private searchService: SearchService) { }
@@ -24,7 +24,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // reset output images
     this.photosReady = 0;
-    this.imagesOutput = [];
+    this.imagesData = [];
+    this.searchService.imagesData = [];
 
     // convert array to 2D array for photos combination
     this.imagesURL = this.create2dArray(this.searchService._images);
@@ -74,39 +75,47 @@ export class PreviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  goNext() {
 
+  // TODO: rewrite function flow
+  goNext() {
+    // start generate image data
+    this.startExport(() => {
+      // done exporting
+      this.router.navigate(['print']);
+    });
   }
 
   isReady() {
     // calculate how many photos url is replaced
     this.photosReady += 1;
-
-    // this.startExport();
   }
 
-  startExport() {
+  startExport(callback) {
     // when photos all ready, then auto export images
     if (this.photosReady === this.imagesURL.length * 2) {
 
-      // call after angular check view done
-      setTimeout(() => {
-        this.exportImages();
-        // done exporting
+      this.exportImages(() => {
+        callback();
       });
+
     } else {
       // TODO: convert image url to data url
       // check which one is not ready
     }
   }
 
-  exportImages() {
+  exportImages(callback) {
     // export canvas from view
     this.photos.forEach(item => {
-      this.exportCanvas(item.nativeElement, (img: string) => {
+      this.exportCanvas(item.nativeElement, (data: string) => {
 
-        // store images data
-        this.imagesOutput.push(img);
+        // store images data to service
+        this.searchService.imagesData.push(data);
+
+        // all stored
+        if (this.searchService.imagesData.length === this.imagesURL.length) {
+          callback();
+        }
       });
     });
   }
