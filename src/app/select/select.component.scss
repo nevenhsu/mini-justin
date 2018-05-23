@@ -2,10 +2,16 @@
   margin-bottom: 2.25rem;
 }
 
+.wrapping {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 .container-profile {
   left: 1rem;
   padding: 1rem 3.5rem 0 3.5rem;
 }
+
 .container-pic {
   padding: 0 1.5rem 0 1.5rem;
 }
@@ -23,3 +29,11 @@
   position: relative;
   right: 3.5rem;
 }
+
+//.wrapping-counter {
+//  position: fixed;
+//  //bottom: 0;
+//  //right: 0;
+//  //padding: 0;
+//  //transform: translate(50%, 50%);
+//}

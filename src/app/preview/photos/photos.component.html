@@ -1,5 +1,12 @@
 
-
+<angular-cropper #angularCropper
+                 [cropbox]="cropBox"
+                 [cropperOptions]="config"
+                 [imageUrl]="imageURL"
+                 (ready)="onReady($event)"
+                 (export)="export($event)"
+                 class="cropper position-fixed invisible"
+></angular-cropper>
 
 <div class="container-image">
     <img #photo
@@ -7,7 +14,11 @@
          (calDimension)="calDimension($event)"
          [ngClass]="{'image-horizon': isHorizon,
                      'image-portrait': !isHorizon}"
+         [src]="dataUrl"
          crossorigin="anonymous"
-         class="image"/>
+         class="image position-absolute d-block" />
+
+
 </div>
+
 

@@ -1,25 +1,30 @@
+<div class="wrapping">
+
 <app-nav (tapLeftBtn)="goPrev($event)"
          [title]="'Select photos'"
          [isShowLeftBtn]="true"
          class="nav d-block"></app-nav>
 
 
-<div class="row m-0">
-    <div class="col-3">
-        <div class="container-profile text-center">
-            <div class="container-pic mb-4">
-                <img class="pic" [src]="picUrl" />
-            </div>
-            <h4 class="name color-grey font-weight-bold">{{ name }}</h4>
-        </div>
-    </div>
 
-    <div appScrollTracker (reachBottom)="reachBottom($event)" class="container-images row col-9 m-0">
-        <div *ngFor="let image of images; index as i;" class="col-3 mb-4">
-            <app-image-thumbnail [image]="image"
-            ></app-image-thumbnail>
-        </div>
-    </div>
+	<div class="row m-0">
+		<div class="col-3 overflow-hidden">
+			<div class="container-profile text-center">
+				<div class="container-pic mb-4">
+					<img class="pic" [src]="picUrl" />
+				</div>
+				<h4 class="name color-grey font-weight-bold">{{ name }}</h4>
+			</div>
+		</div>
+
+		<div appScrollTracker (reachBottom)="reachBottom($event)" class="container-images row col-9 m-0">
+			<div *ngFor="let image of images; index as i;" class="col-3 mb-4">
+				<app-image-thumbnail [image]="image"
+				></app-image-thumbnail>
+			</div>
+		</div>
+	</div>
+
+	<app-counter class="wrapping-counter"></app-counter>
 </div>
 
-<app-counter></app-counter>

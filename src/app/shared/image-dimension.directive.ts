@@ -13,6 +13,8 @@ export class ImageDimensionDirective {
     });
   }
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {
+    this.el.nativeElement.crossOrigin = 'anonymous';
+  }
 
 }

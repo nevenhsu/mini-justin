@@ -1,12 +1,16 @@
 @import "../shared/custom-variables";
 
-
+.wrapping {
+  width: 100vw;
+  height: 100vh;
+}
 
 .images {
   width: 644px;
-  height: 436px;
+  height: 433px;
   border: 1px solid $color-grey-light2;
   background-color: $color-white;
+  margin: auto !important;
 }
 
 .container-image {
@@ -18,12 +22,62 @@
   border-right: 1px solid $color-grey-light2;
 }
 
-.testbtn {
+.carousel {
   position: absolute;
-  right: 0;
-  width: 120px;
-  height: 48px;
-  background-color: #37474F;
-  color: white;
+  top: 10rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 180vw;
 }
 
+.item {
+  margin: 0;
+  width: 33%;
+  min-height: 1px;
+}
+
+.item-null {
+  width: 12.5%;
+}
+
+
+.btn-carousel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 10%;
+  opacity: 0;
+}
+
+.btn-left {
+  left: 20%;
+}
+
+.btn-right {
+  right: 20%;
+}
+
+.btn-preview {
+  position: absolute;
+  bottom: 2rem;
+  width: 20rem;
+  height: 6rem;
+  border-radius: 45px;
+  color: $color-white;
+}
+
+.btn-prev {
+  left: 4.5rem;
+  background-image: $gradient-grey-light;
+  opacity: 0.73;
+  transition: all 0.25s ease-out;
+  &:hover, &:active {
+    opacity: 1;
+  }
+}
+
+.btn-next {
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-image: $gradient-primary;
+}

@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 
 export class SelectComponent implements OnInit, OnDestroy {
   // TODO: get user info
+  // TODO: adjust counter css
 
   sub: Subscription;
   entry: string;
@@ -75,7 +76,6 @@ export class SelectComponent implements OnInit, OnDestroy {
         }
         break;
       case 'tag':
-        console.log( localStorage.getItem('hashtagName'));
         this.hashtagName = localStorage.getItem('hashtagName');
         // if query doesn't match to local data then go to prev page
         if (this.query === this.hashtagName) {

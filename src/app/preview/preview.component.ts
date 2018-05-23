@@ -1,8 +1,9 @@
-import { AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from 'shared/search.service';
 import { Subscription } from 'rxjs';
 import * as html2canvas from 'html2canvas';
+import { NguCarousel } from "@ngu/carousel";
 
 @Component({
   selector: 'app-preview',
@@ -11,29 +12,45 @@ import * as html2canvas from 'html2canvas';
 })
 export class PreviewComponent implements OnInit, OnDestroy {
   @ViewChildren('photos', {read: ElementRef} ) photos: QueryList<ElementRef>;
-
+  carouselOne: NguCarousel;
   sub: Subscription;
-  imagesArray: PostImage[][] = [];
+  imagesURL: PostImage[][] = [];
+  photosReady: number;
+  imagesOutput: string[] = []; // output images data
+
+
   constructor(private router: Router, private searchService: SearchService) { }
 
   ngOnInit() {
-    this.imagesArray = this.create2dArray(this.searchService._images);
+    // reset output images
+    this.photosReady = 0;
+    this.imagesOutput = [];
+
+    // convert array to 2D array for photos combination
+    this.imagesURL = this.create2dArray(this.searchService._images);
     this.sub = this.searchService.images.subscribe(images => {
-      this.imagesArray = this.create2dArray(images);
+      this.imagesURL = this.create2dArray(images);
     });
+
+    // carousel setting
+    this.carouselOne = {
+      grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},
+      slide: 1,
+      speed: 400,
+      interval: 4000,
+      point: {
+        visible: false
+      },
+      load: 2,
+      touch: true,
+      easing: 'ease-out',
+      loop: true
+    };
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
-  getImgData() {
-    console.log('click!');
-    this.photos.forEach(item => {
-      this.test(item.nativeElement);
-    });
-  }
-
 
   create2dArray(array: Array<any>) {
     const NEWARRAY: PostImage[][] = [];
@@ -46,6 +63,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
     return NEWARRAY;
   }
 
+
   goPrev() {
     const URL = SearchService.getSafe(() => this.searchService.prevUrl.url);
     const QUERY = SearchService.getSafe(() => this.searchService.prevUrl.queryParams);
@@ -56,12 +74,54 @@ export class PreviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  test(element) {
-    html2canvas(element, {allowTaint: true}).then(canvas => {
-      // document.body.appendChild(canvas);
-      const img = canvas.toDataURL('image/jpeg');
-      console.log(img);
+  goNext() {
+
+  }
+
+  isReady() {
+    // calculate how many photos url is replaced
+    this.photosReady += 1;
+
+    // this.startExport();
+  }
+
+  startExport() {
+    // when photos all ready, then auto export images
+    if (this.photosReady === this.imagesURL.length * 2) {
+
+      // call after angular check view done
+      setTimeout(() => {
+        this.exportImages();
+        // done exporting
+      });
+    } else {
+      // TODO: convert image url to data url
+      // check which one is not ready
+    }
+  }
+
+  exportImages() {
+    // export canvas from view
+    this.photos.forEach(item => {
+      this.exportCanvas(item.nativeElement, (img: string) => {
+
+        // store images data
+        this.imagesOutput.push(img);
+      });
     });
   }
+
+  exportCanvas(element, callback) {
+    html2canvas(element, {
+      async: true,
+      scale: 2.796,
+      height: 433.12
+    }).then(canvas => {
+      const img = canvas.toDataURL('image/jpeg');
+      callback(img);
+    });
+  }
+
+
 
 }

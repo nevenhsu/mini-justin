@@ -1,3 +1,10 @@
+.cropper {
+  top: -100%;
+  pointer-events: none;
+  z-index: -1000;
+}
+
+
 .container-image {
   position: relative;
   width: 100%;
@@ -8,8 +15,6 @@
 .image {
   /* Position the image in the middle of its container. */
   margin: auto;
-  position: absolute;
-  display: block;
   top: -9999px;
   right: -9999px;
   bottom: -9999px;
@@ -25,3 +30,4 @@
   min-height: 100%;
   width: 100%;
 }
+

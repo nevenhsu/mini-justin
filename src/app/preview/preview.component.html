@@ -1,21 +1,45 @@
+
+
+
 <div class="background-pattern absolute-center background-cover z-0 position-fixed"></div>
 
-<app-nav (tapLeftBtn)="goPrev()"
-         [title]="'Preview'"
-         [isShowLeftBtn]="true"
-         class="nav"></app-nav>
+<div class="wrapping position-relative z-1000">
+    <app-nav (tapLeftBtn)="goPrev()"
+             [title]="'Preview'"
+             [isShowLeftBtn]="true"
+             class="nav"></app-nav>
 
-<button class="testbtn z-1040" (click)="getImgData()">DATATA</button>
 
-<div class="carousel">
-  <div #photos *ngFor="let images of imagesArray"
-       class="images row m-0">
-    <div *ngFor="let img of images;index as i"
-         [class.image-border]="i % 2 == 0"
-         class="container-image image-border col-6">
-        <app-photos [imageURL]="img.display_url"></app-photos>
-    </div>
-  </div>
+	<ngu-carousel [inputs]="carouselOne"
+				  class="carousel"
+	>
+		<ngu-item NguCarouselItem class="item-null"></ngu-item>
+		<ngu-item NguCarouselItem
+				  *ngFor="let images of imagesURL"
+				  class="item"
+		>
+			<div #photos
+				 class="images row m-0"
+			>
+				<div *ngFor="let img of images; index as i"
+					 [class.image-border]="i % 2 == 0"
+					 class="container-image image-border col-6">
+					<app-photos (isReady)="isReady()"
+								[imageURL]="img.display_url"></app-photos>
+				</div>
+			</div>
+
+		</ngu-item>
+		<ngu-item NguCarouselItem class="item-null"></ngu-item>
+
+		<button NguCarouselPrev class='btn-carousel btn-left'>&lt;</button>
+		<button NguCarouselNext class='btn-carousel btn-right'>&gt;</button>
+
+	</ngu-carousel>
+
+	<button (tap)="goPrev()" class="btn-preview btn-prev"><h1>reselect</h1></button>
+	<button (tap)="goNext()" class="btn-preview btn-next"><h1>Print</h1></button>
+
 </div>
 
 
