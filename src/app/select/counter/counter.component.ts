@@ -22,7 +22,7 @@ export class CounterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.total = this.searchService._images.length;
-    this.subscription = this.searchService.images.subscribe((images) => {
+    this.subscription = this.searchService.images$.subscribe((images) => {
       this.total = images.length;
     });
   }

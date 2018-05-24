@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { SearchService } from 'shared/search.service';
 import { Subscription } from 'rxjs';
 import * as html2canvas from 'html2canvas';
-import { NguCarousel } from "@ngu/carousel";
+import { NguCarousel } from '@ngu/carousel';
+import { PhotoComponent } from './photo/photo.component';
 
 @Component({
   selector: 'app-preview',
@@ -11,33 +12,32 @@ import { NguCarousel } from "@ngu/carousel";
   styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent implements OnInit, OnDestroy {
-  @ViewChildren('photos', {read: ElementRef} ) photos: QueryList<ElementRef>;
+  @ViewChildren('photosEl', {read: ElementRef} ) photosEl: QueryList<ElementRef>;
+  @ViewChildren('photo') photos:  QueryList<PhotoComponent>;
   carouselOne: NguCarousel;
   sub: Subscription;
   imagesURL: PostImage[][] = [];
   photosReady: number;
-  imagesData: string[] = []; // output images data
-
+  testimages: Array<string> = [];
 
   constructor(private router: Router, private searchService: SearchService) { }
 
   ngOnInit() {
     // reset output images
     this.photosReady = 0;
-    this.imagesData = [];
     this.searchService.imagesData = [];
 
-    // convert array to 2D array for photos combination
+    // convert array to 2D array for photosEl combination
     this.imagesURL = this.create2dArray(this.searchService._images);
-    this.sub = this.searchService.images.subscribe(images => {
+    this.sub = this.searchService.images$.subscribe(images => {
       this.imagesURL = this.create2dArray(images);
     });
 
     // carousel setting
     this.carouselOne = {
-      grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},
+      grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
       slide: 1,
-      speed: 400,
+      speed: 100,
       interval: 4000,
       point: {
         visible: false
@@ -76,52 +76,63 @@ export class PreviewComponent implements OnInit, OnDestroy {
   }
 
 
-  // TODO: rewrite function flow
   goNext() {
-    // start generate image data
-    this.startExport(() => {
-      // done exporting
-      this.router.navigate(['print']);
+    // call photo component export url data to replace photo url
+    // photoDone is listening to photo isDone
+    this.photos.forEach(photo => {
+      photo.startExport();
     });
   }
 
-  isReady() {
-    // calculate how many photos url is replaced
+  photoDone() {
+    // listen to cropper js ready
+    // calculate how many photosEl url is replaced
     this.photosReady += 1;
-  }
 
-  startExport(callback) {
-    // when photos all ready, then auto export images
+    // photos all ready then call html2canvas
     if (this.photosReady === this.imagesURL.length * 2) {
 
-      this.exportImages(() => {
-        callback();
-      });
+      // extract nativeElements into array
+      const nativeElements: Array<any> = [];
+      const PHOTOSEL = this.photosEl.toArray();
 
-    } else {
-      // TODO: convert image url to data url
-      // check which one is not ready
+      for (let i = 0; i < PHOTOSEL.length; i++) {
+        nativeElements.push(PHOTOSEL[i].nativeElement);
+      }
+
+      this.exportImages(nativeElements, () => {
+        // TODO: should use observable in goNext
+        // when all stored then go print
+        if (this.searchService.imagesData.length === this.imagesURL.length) {
+          console.log('Successfully export images data! ');
+          this.router.navigate(['print']);
+        } else {
+          console.log('ERROR: canvas exports are not completed! \n DataUrls Number:', this.searchService.imagesData.length);
+          // check if url is not replaced, photo component should regenerate images data
+        }
+      });
     }
   }
 
-  exportImages(callback) {
-    // export canvas from view
-    this.photos.forEach(item => {
-      this.exportCanvas(item.nativeElement, (data: string) => {
-
-        // store images data to service
-        this.searchService.imagesData.push(data);
-
-        // all stored
-        if (this.searchService.imagesData.length === this.imagesURL.length) {
-          callback();
-        }
+  exportImages(items: Array<object>, callback) {
+    const REQUESTS = items.map((item => {
+      return new Promise(resolve => {
+        this.exportCanvas(item, resolve);
       });
+    }));
+
+    Promise.all(REQUESTS).then((values) => {
+      // store all images data to service
+      for (const value of values) {
+        this.searchService.imagesData.push(value as string);
+        this.testimages.push(value as string);
+      }
+      callback();
     });
   }
 
-  exportCanvas(element, callback) {
-    html2canvas(element, {
+  exportCanvas(item, callback) {
+    html2canvas(item, {
       async: true,
       scale: 2.796,
       height: 433.12

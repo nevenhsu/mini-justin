@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchService } from 'shared/search.service';
 
 @Component({
   selector: 'app-print',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./print.component.scss']
 })
 export class PrintComponent implements OnInit {
+  images: Array<string> = [];
 
-  constructor() { }
+  constructor(private searchService: SearchService) { }
 
   ngOnInit() {
+    this.images = this.searchService.imagesData;
   }
 
 }

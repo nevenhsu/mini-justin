@@ -20,7 +20,7 @@ import { NavComponent } from 'shared/nav/nav.component';
 import { ChooseIgComponent } from './type/choose-ig/choose-ig.component';
 import { ImageThumbnailComponent } from 'shared/image-thumbnail/image-thumbnail.component';
 import { CounterComponent } from './select/counter/counter.component';
-import { PhotosComponent } from './preview/photos/photos.component';
+import { PhotoComponent } from './preview/photo/photo.component';
 
 import { SearchService } from 'shared/search.service';
 import { ScrollTrackerDirective } from 'shared/scroll-tracker.directive';
@@ -53,7 +53,7 @@ const appRoutes: Routes = [
     ImageThumbnailComponent,
     ScrollTrackerDirective,
     CounterComponent,
-    PhotosComponent,
+    PhotoComponent,
     ImageDimensionDirective,
     PrintComponent,
   ],

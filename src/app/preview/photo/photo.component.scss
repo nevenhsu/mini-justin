@@ -1,15 +1,8 @@
-.cropper {
-  top: -100%;
-  pointer-events: none;
-  z-index: -1000;
-}
 
-
-.container-image {
+.photo {
   position: relative;
   width: 100%;
   padding-top: 100%;
-  overflow: hidden;
 }
 
 .image {

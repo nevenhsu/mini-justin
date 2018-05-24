@@ -1,25 +1,56 @@
 @import "../shared/custom-variables";
 
+
+
+
 .wrapping {
   width: 100vw;
   height: 100vh;
 }
 
-.images {
+.canvas-print {
+  width: 100vw;
+}
+
+.photos {
   width: 644px;
   height: 433px;
-  border: 1px solid $color-grey-light2;
-  background-color: $color-white;
   margin: auto !important;
 }
 
-.container-image {
+.photo {
   height: 100%;
   padding: 1rem 1rem 1rem 1rem;
+  background-color: $color-white;
 }
 
-.image-border {
-  border-right: 1px solid $color-grey-light2;
+.photo-right {
+  right: -2rem;
+}
+
+.photo-left {
+  left: -2rem;
+}
+
+.container-image {
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+.image {
+  position: r;
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+}
+
+.thin-border {
+  border: $border-grey;
+}
+
+.thin-border-right {
+  border-right: $border-grey;
 }
 
 .carousel {

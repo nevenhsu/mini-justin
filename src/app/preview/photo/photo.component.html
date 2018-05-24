@@ -4,11 +4,11 @@
                  [cropperOptions]="config"
                  [imageUrl]="imageURL"
                  (ready)="onReady($event)"
-                 (export)="export($event)"
-                 class="cropper position-fixed invisible"
+                 (export)="doneExport($event)"
+                 class="hidden"
 ></angular-cropper>
 
-<div class="container-image">
+<div class="photo overflow-hidden">
     <img #photo
          appImageDemension
          (calDimension)="calDimension($event)"
@@ -17,8 +17,6 @@
          [src]="dataUrl"
          crossorigin="anonymous"
          class="image position-absolute d-block" />
-
-
 </div>
 
 
