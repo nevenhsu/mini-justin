@@ -113,7 +113,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
         if (this.searchService.imagesData.length === this.imagesURL.length) {
           console.log('Successfully export images data! ');
           this.isPending = false;
-          this.router.navigate(['print']);
+          // this.router.navigate(['print']);
         } else {
           this.isPending = false;
           console.log('ERROR: canvas exports are not completed! \n DataUrls Number:', this.searchService.imagesData.length);

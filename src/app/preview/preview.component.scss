@@ -22,11 +22,12 @@
 }
 
 .photo-text {
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: normal;
   color: $color-black;
   overflow: hidden;
-  max-height: 90px;
+  max-height: 70px;
   width: 100%;
   word-break: break-all;
 }
@@ -46,7 +47,6 @@
 }
 
 .image {
-  position: r;
   width: 100%;
   height: 100%;
   object-fit:cover;

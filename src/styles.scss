@@ -1,12 +1,43 @@
 @import "app/shared/_custom-variables";
 
 // import fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('//fonts.googleapis.com/earlyaccess/notosanstc.css');
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(http://fonts.gstatic.com/s/materialicons/v37/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+  src: url('./assets/font/Material_Icons.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('./assets/font/notosans-black-webfont.woff2') format('woff2'),
+  url('./assets/font/notosans-black-webfont.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('./assets/font/notosans-bold-webfont.woff2') format('woff2'),
+  url('./assets/font/notosans-bold-webfont.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('./assets/font/notosans-semibold-webfont.woff2') format('woff2'),
+  url('./assets/font/notosans-semibold-webfont.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('./assets/font/notosans-regular-webfont.woff2') format('woff2'),
+  url('./assets/font/notosans-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 // overwrite bootstrap variables
@@ -101,16 +132,19 @@ h1 {
   line-height: 57px;
   letter-spacing: 0.31px;
   font-family: $font-family-sans-serif;
+  margin: 0;
 }
 h2 {
   font-size: 38px;
   font-family: $font-family-sans-serif;
+  margin: 0;
 }
 h3 {
   font-size: 32px;
   line-height: 43px;
   letter-spacing: 0.17px;
   font-family: $font-family-sans-serif;
+  margin: 0;
 }
 h4 {
   font-size: 22px;
@@ -118,6 +152,7 @@ h4 {
   letter-spacing: 0.21px;
   font-weight: 500;
   font-family: $font-family-sans-serif;
+  margin: 0;
 }
 p {
   font-size: 16px;
@@ -125,6 +160,13 @@ p {
   letter-spacing: 0.16px;
   font-weight: 400;
   font-family: $font-family-sans-serif;
+  margin: 0;
+}
+.font-weight-black {
+  font-weight: 900;
+}
+.font-weight-semibold {
+  font-weight: 600;
 }
 
 
