@@ -31,6 +31,10 @@ $font-family-sans-serif: 'Noto Sans', 'Noto Sans TC', -apple-system, BlinkMacSys
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 a,
 button,
 input,
@@ -198,7 +202,9 @@ p {
 
 // virtual keyboard
 // @ngx-material-keyboard/core
+
 mat-keyboard-container {
+  overflow: hidden !important;
   width: 100vw !important;
   margin: 0 !important;
   max-width: unset !important;

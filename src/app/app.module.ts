@@ -27,6 +27,7 @@ import { ScrollTrackerDirective } from 'shared/scroll-tracker.directive';
 import { AutofocusDirective } from 'shared/autofocus.directive';
 import { ImageDimensionDirective } from 'shared/image-dimension.directive';
 import { PrintComponent } from './print/print.component';
+import { KeyboardComponent } from './type/keyboard/keyboard.component';
 
 
 
@@ -70,6 +71,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     PhotoComponent,
     ImageDimensionDirective,
     PrintComponent,
+    KeyboardComponent,
   ],
   imports: [
     BrowserModule,

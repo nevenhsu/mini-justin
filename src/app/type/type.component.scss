@@ -1,32 +1,18 @@
-@import "../shared/_custom-variables";
-
-@mixin text {
-  font-size: 38px;
-  line-height: 52px;
-  letter-spacing: 0.28px;
-}
 
 .nav {
   display: block;
   margin-bottom: 3.5rem;
 }
 
+.wrapping {
+  width: 100vw;
+  height: 100vh;
+}
+
 .form {
-  margin-top: 2.75rem;
-}
-
-.keyword {
-  @include text;
-  height: 7.5rem;
-  border: 2px solid #ABABAB;
-  border-radius: 70px;
-  color: $color-grey;
-  background-color: $color-white;
+  display: block;
+  margin-top: 6rem;
 }
 
 
-.placeholder {
-  @include text;
-  color: $color-grey-light;
-}
 

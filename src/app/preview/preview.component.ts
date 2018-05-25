@@ -2,9 +2,9 @@ import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } fro
 import { Router } from '@angular/router';
 import { SearchService } from 'shared/search.service';
 import { Subscription } from 'rxjs';
-import * as html2canvas from 'html2canvas';
 import { NguCarousel } from '@ngu/carousel';
 import { PhotoComponent } from './photo/photo.component';
+import * as html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-preview',
@@ -24,17 +24,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private searchService: SearchService) { }
 
   ngOnInit() {
-    // reset output images
-    this.photosReady = 0;
-    this.searchService.imagesData = [];
-    this.isPending = false;
-
-    // convert array to 2D array for photosEl combination
-    this.imagesURL = this.create2dArray(this.searchService._images);
-    this.sub = this.searchService.images$.subscribe(images => {
-      this.imagesURL = this.create2dArray(images);
-    });
-
     // carousel setting
     this.carouselOne = {
       grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
@@ -49,6 +38,22 @@ export class PreviewComponent implements OnInit, OnDestroy {
       easing: 'ease-out',
       loop: true
     };
+
+    // reset output images
+    this.photosReady = 0;
+    this.searchService.imagesData = [];
+    this.isPending = false;
+
+    // convert array to 2D array for photosEl combination
+    this.imagesURL = this.create2dArray(this.searchService._images);
+    this.sub = this.searchService.images$.subscribe(images => {
+      this.imagesURL = this.create2dArray(images);
+    });
+
+    // if service no image
+    if (this.searchService._images.length === 0) {
+      this.goPrev();
+    }
   }
 
   ngOnDestroy() {
@@ -145,7 +150,5 @@ export class PreviewComponent implements OnInit, OnDestroy {
       callback(img);
     });
   }
-
-
 
 }

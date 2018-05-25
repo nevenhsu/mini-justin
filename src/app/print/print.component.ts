@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'shared/search.service';
-import * as printer from '../../external/js/printerAPI/printer-edit.js';
 import { Router } from '@angular/router';
+import * as printer from '../../external/js/printerAPI/printer-edit.js';
 
 
 @Component({
@@ -18,19 +18,20 @@ export class PrintComponent implements OnInit {
   ngOnInit() {
     this.images = this.searchService.imagesData;
     this.checkImages();
+    printer.init();
+    this.checkStatus();
   }
 
   checkStatus() {
     // 0 is ready, 65537 is idle
     const STATE =  printer.Cookies.get('printer');
     if (STATE && printer.READY_STATUS) {
-      console.log(STATE, printer.READY_STATUS);
       this.startPrint();
     } else {
       // wait websocket connected and retry
       setTimeout(() => {
         this.checkStatus();
-      }, 1000);
+      }, 500);
     }
   }
 
@@ -43,10 +44,9 @@ export class PrintComponent implements OnInit {
 
   checkImages() {
     if (this.images.length === 0) {
+      console.log('Error: no images data for printing');
       this.router.navigate(['']);
-    } else {
-      printer.init();
-      this.checkStatus();
+      return;
     }
   }
 

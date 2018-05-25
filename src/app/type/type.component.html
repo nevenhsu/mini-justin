@@ -1,23 +1,22 @@
 <div class="background-pattern absolute-center background-cover z-0 position-fixed"></div>
 
-<app-nav (tapLeftBtn)="goPrevPage($event)"
-         [title]="title"
-         [isShowLeftBtn]="true"
-          class="nav"></app-nav>
+<div class="wrapping"
+	 [class.overflow-hidden]="!isShowChoose"
+>
+	<app-nav (tapLeftBtn)="goPrevPage($event)"
+			 [title]="title"
+			 [isShowLeftBtn]="true"
+			 class="nav position-relative z-1000"></app-nav>
 
-<div *ngIf="!isShowChoose; else choose" class="overflow-hidden z-1000">
-  <form #form="ngForm" class="form text-center position-relative row">
-    <input #keyword="ngModel"
-           ngModel
-           required
-           name="keyword"
-           [matKeyboard]="'en-US'"
-           (enterClick)="onClickEnter()"
-           (blur)="onBlur($event)"
-           autofocus="autofocus"
-           class="keyword col-6 offset-3 text-center"/>
-    <p *ngIf="keyword.value === ''" class="placeholder position-absolute absolute-center">Type in Instagram username</p>
-  </form>
+	<div *ngIf="!isShowChoose; else choose"
+		 class="position-relative z-1000"
+	>
+		<div class="form">
+			<app-keyboard (enter)="onClickEnter($event)"
+			></app-keyboard>
+		</div>
+
+	</div>
 </div>
 
 <ng-template #choose>

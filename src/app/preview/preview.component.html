@@ -23,9 +23,10 @@
 					 [class.photo-right]="i % 2 !== 0"
 					 [class.photo-left]="i % 2 === 0"
 					 class="photo thin-border col-6">
-					<div class="container-image d-block position-relative">
+					<div class="container-image d-block position-relative mb-3">
 						<img class="image absolute-center" [src]="img.display_url" />
 					</div>
+					<p class="photo-text">{{ img.edge_media_to_caption?.edges[0]?.node?.text }}</p>
 
 				</div>
 			</div>
@@ -40,8 +41,9 @@
 	<button (tap)="goPrev()" class="btn-preview btn-prev"><h1>reselect</h1></button>
 	<button [disabled]="isPending"
 			(tap)="goNext()"
+			[class.btn-next-animation]="isPending"
 			class="btn-preview btn-next">
-		<h1>Print</h1>
+		<h1>{{isPending ? 'Print...' : 'Print'}}</h1>
 	</button>
 
 </div>
@@ -56,11 +58,13 @@
 			<div *ngFor="let img of images; index as i"
 				 [class.thin-border-right]="i % 2 == 0"
 				 class="photo col-6">
-				<app-photo #photo
-						   (isDone)="photoDone()"
-						   [imageURL]="img.display_url"
-						   class="visible"
-				></app-photo>
+				<div class="visible mb-3">
+					<app-photo #photo
+							   (isDone)="photoDone()"
+							   [imageURL]="img.display_url"
+					></app-photo>
+				</div>
+				<p class="photo-text">{{ img.edge_media_to_caption?.edges[0]?.node?.text }}</p>
 			</div>
 		</div>
 	</div>

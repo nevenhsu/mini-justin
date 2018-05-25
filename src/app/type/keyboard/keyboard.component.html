@@ -1,0 +1,12 @@
+<form #form="ngForm" class="form text-center position-relative row">
+  <input [matKeyboard]="'en-US'"
+		 (enterClick)="onClickEnter()"
+		 (blur)="onBlur($event)"
+		 #keyword="ngModel"
+         ngModel
+		 required
+		 appAutofocus
+         name="keyword"
+         class="keyword col-6 offset-3 text-center"/>
+  <p *ngIf="keyword.value === ''" class="placeholder position-absolute absolute-center">Type in Instagram username</p>
+</form>

@@ -1,4 +1,6 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectorRef, Component, OnDestroy, OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SearchService } from 'shared/search.service';
@@ -8,13 +10,11 @@ import { SearchService } from 'shared/search.service';
   templateUrl: './type.component.html',
   styleUrls: ['./type.component.scss']
 })
-export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
-  @ViewChild('keyword', {read: ElementRef}) keyword;
+export class TypeComponent implements OnInit, OnDestroy {
   title: string;
   sub: Subscription;
   entry: string;
   query: string;
-
   isShowChoose: boolean;
 
   constructor(private route: ActivatedRoute,
@@ -32,14 +32,6 @@ export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-  }
-
-  ngAfterViewChecked() {
-    // if showing keyboard then focus input
-    if (!this.isShowChoose) {
-      this.keyword.nativeElement.focus();
-      this.cd.detectChanges();
-    }
   }
 
   checkParams() {
@@ -72,14 +64,8 @@ export class TypeComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  onBlur() {
-    // force to focus
-    this.keyword.nativeElement.focus();
-  }
-
-  onClickEnter() {
-    const VALUE = this.keyword.nativeElement.value;
-    if (!VALUE) {return; }
+  onClickEnter(value) {
+    const VALUE = value;
 
     // go to choose account or select photo
     // now case tag: is ignored
