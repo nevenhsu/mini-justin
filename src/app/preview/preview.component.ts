@@ -86,9 +86,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
   goNext() {
     // call photo component export url data to replace photo url
     // photoDone is listening to photo isDone
+    this.isPending = true;
     this.photos.forEach(photo => {
       photo.startExport();
-      this.isPending = true;
     });
   }
 

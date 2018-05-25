@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from 'shared/search.service';
 import { Router } from '@angular/router';
 import * as printer from '../../external/js/printerAPI/printer-edit.js';
@@ -9,7 +9,7 @@ import * as printer from '../../external/js/printerAPI/printer-edit.js';
   templateUrl: './print.component.html',
   styleUrls: ['./print.component.scss']
 })
-export class PrintComponent implements OnInit {
+export class PrintComponent implements OnInit, OnDestroy {
   images: Array<string> = [];
 
   constructor(private searchService: SearchService,
@@ -22,11 +22,17 @@ export class PrintComponent implements OnInit {
     this.checkStatus();
   }
 
+  ngOnDestroy() {
+    printer.Cookies.set('printer', 'false');
+  }
+
   checkStatus() {
     // 0 is ready, 65537 is idle
     const STATE =  printer.Cookies.get('printer');
     if (STATE && printer.READY_STATUS) {
-      this.startPrint();
+      setTimeout(() => {
+        this.startPrint();
+      }, 500);
     } else {
       // wait websocket connected and retry
       setTimeout(() => {
