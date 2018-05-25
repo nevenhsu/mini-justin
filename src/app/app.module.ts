@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -39,6 +39,20 @@ const appRoutes: Routes = [
   {path: '**', component: HomeComponent},
 ];
 
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = {
+    pan: {
+      direction: 6
+    },
+    pinch: {
+      enable: false
+    },
+    rotate: {
+      enable: false
+    }
+  };
+}
+
 
 @NgModule({
   declarations: [
@@ -71,7 +85,11 @@ const appRoutes: Routes = [
     MatKeyboardModule
   ],
   providers: [
-    SearchService
+    SearchService,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

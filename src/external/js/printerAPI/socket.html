@@ -1,0 +1,25 @@
+ <!DOCTYPE html>
+  <meta charset="utf-8" />
+  <title>WebSocket Test</title>
+  <script src="js/printer.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/js.cookie.js"></script>
+  <script src="js/language.js"></script>
+  
+  <h2>WebSocket Test</h2>
+  <button type='button' onclick="getPrintStatusCmd();">status</button>
+  <button type='button' onclick="getPaperCountCmd();">paper</button>
+  <button type='button' onclick="getRibbonCount();">ribbon</button>
+  <br><br>
+  <button type='button' onclick="getInitial();">initial</button>
+  <button type='button' onclick="downloadImageCmd('https://images.pexels.com/photos/207962/pexels-photo-207962.jpeg');">download</button>
+  <button type='button' onclick="printImageCmd('C:/Users/user1/Desktop/QT-0523/windows/pic/20180524024804439');">print</button>
+  <button type='button' onclick="clearPrintQuene();">clear quene</button>
+  <br><br>
+  <button type='button' onclick="setOrderCmd();">send order</button>
+  <button type='button' onclick="updateOrderCmd();">update order</button>
+  <button type='button' onclick="setPhotoCmd();">set photo</button>
+  <button type='button' onclick="changeOverCmd();">補換貨</button>
+  <button type='button' onclick="registerCmd();">register</button>
+
+  <div id="output"></div>

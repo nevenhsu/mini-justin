@@ -57,7 +57,6 @@ export class PhotoComponent implements OnInit {
 
   onReady(event) {
     // prevent call twice
-    if (!event.type) { return; }
     this.isReady = true;
   }
 

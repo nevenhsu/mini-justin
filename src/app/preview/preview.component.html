@@ -38,13 +38,17 @@
 	</ngu-carousel>
 
 	<button (tap)="goPrev()" class="btn-preview btn-prev"><h1>reselect</h1></button>
-	<button (tap)="goNext()" class="btn-preview btn-next"><h1>Print</h1></button>
+	<button [disabled]="isPending"
+			(tap)="goNext()"
+			class="btn-preview btn-next">
+		<h1>Print</h1>
+	</button>
 
 </div>
 
 
 <!--	for html2canvas layout	-->
-<div class="canvas-print hidden position-absolute">
+<div class="canvas-print hidden">
 	<div *ngFor="let images of imagesURL">
 		<div #photosEl
 			 class="photos row visible position-relative"

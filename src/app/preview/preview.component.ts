@@ -12,13 +12,14 @@ import { PhotoComponent } from './photo/photo.component';
   styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent implements OnInit, OnDestroy {
-  @ViewChildren('photosEl', {read: ElementRef} ) photosEl: QueryList<ElementRef>;
-  @ViewChildren('photo') photos:  QueryList<PhotoComponent>;
+  @ViewChildren('photosEl', {read: ElementRef} ) photosEl: QueryList<ElementRef>; // for extract canvas data url
+  @ViewChildren('photo') photos:  QueryList<PhotoComponent>; // for generate image data url
   carouselOne: NguCarousel;
   sub: Subscription;
-  imagesURL: PostImage[][] = [];
-  photosReady: number;
-  testimages: Array<string> = [];
+  imagesURL: PostImage[][] = []; // origin images url
+  photosReady: number; // is all photo ready to extract data
+  isPending: boolean; // is generating images
+  testimages: Array<string> = []; // for test
 
   constructor(private router: Router, private searchService: SearchService) { }
 
@@ -26,6 +27,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
     // reset output images
     this.photosReady = 0;
     this.searchService.imagesData = [];
+    this.isPending = false;
 
     // convert array to 2D array for photosEl combination
     this.imagesURL = this.create2dArray(this.searchService._images);
@@ -81,6 +83,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
     // photoDone is listening to photo isDone
     this.photos.forEach(photo => {
       photo.startExport();
+      this.isPending = true;
     });
   }
 
@@ -95,7 +98,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       // extract nativeElements into array
       const nativeElements: Array<any> = [];
       const PHOTOSEL = this.photosEl.toArray();
-
       for (let i = 0; i < PHOTOSEL.length; i++) {
         nativeElements.push(PHOTOSEL[i].nativeElement);
       }
@@ -105,8 +107,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
         // when all stored then go print
         if (this.searchService.imagesData.length === this.imagesURL.length) {
           console.log('Successfully export images data! ');
+          this.isPending = false;
           this.router.navigate(['print']);
         } else {
+          this.isPending = false;
           console.log('ERROR: canvas exports are not completed! \n DataUrls Number:', this.searchService.imagesData.length);
           // check if url is not replaced, photo component should regenerate images data
         }
