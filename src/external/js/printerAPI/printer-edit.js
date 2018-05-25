@@ -2,8 +2,9 @@
 // export function print() {
 //   console.log("2. Hello from external printer js!")
 // }
+import * as Cookies from "../js.cookie.js";
 
-export { init, downloadImageCmd, READY_STATUS }
+export { init, downloadImageCmd, Cookies, READY_STATUS }
 
 var wsUri = "ws://127.0.0.1:60089/";
 var output;
@@ -23,6 +24,12 @@ var printFinishCount = 1;
 var easyCardResult = false;
 var READY_STATUS;
 var websocket;
+var PAPER_OUT;
+var printer_paper_count;
+var foto_index;
+var foto_price;
+var mergedPhotos;
+var PRINTER;
 
 
 function init()
@@ -83,7 +90,7 @@ function onError(evt)
   }
 
   setTimeout(function(){
-    window.location.replace('QT.html?'+retryCount);
+    // window.location.replace('QT.html?'+retryCount);
   },5000);
 
   //window.location.replace('error.html?error=系統連線錯誤!');
@@ -445,15 +452,17 @@ DNP printerStatus
 
   if(data.result)
   {
-    if(data.printer === 'HITI')
+    if(data.printer === 'HITI') {
       READY_STATUS = 0;
-    else //DNP
+    } else { //DNP
       READY_STATUS = 65537;
+    }
 
-    if(data.printer == 'HITI')
+    if(data.printer == 'HITI') {
       Cookies.set('printer','false');
-    else
+    } else {
       Cookies.set('printer','true');
+    }
 
     console.log('print status' + print_photo_count);
     if(isPrinting === true && data.printerStatus === READY_STATUS && print_photo_count === foto_index)
@@ -461,7 +470,7 @@ DNP printerStatus
       clearInterval(timer_status);
       isPrinting = false;
 
-      print_counter(1);
+      // print_counter(1);
     }
 
     if(data.printer === 'HITI')
@@ -591,11 +600,11 @@ function checkDownloadImage(data)
   {
     //error 時 更新訂單狀態為fail
     console.log('Download Image ERROR:'+ image_download_url);
-    if(retry_count > 3)
-      window.location.replace('error.html?error=' + LANG.ERROR_NETWORK_PRINT);
-    else
+    if(retry_count > 3) {
+      // window.location.replace('error.html?error=' + LANG.ERROR_NETWORK_PRINT);
+    } else {
       downloadImageCmd(image_download_url);
-
+    }
     retry_count++;
   }
 }
@@ -604,7 +613,7 @@ function checkPrintImage(data)
 {
   if(data.result)
   {
-    setTracking('QT check print photo:' + data.result + ',index:' + printFinishCount);
+    // setTracking('QT check print photo:' + data.result + ',index:' + printFinishCount);
     console.log('checkPrintImage:'+ print_photo_count + ',' +foto_index);
 
     if(PRINTER === 'false' && printFinishCount == 1)
@@ -642,7 +651,7 @@ function checkPrintImage(data)
   }
   else
   {
-    setTracking('QT check print photo error:' + data.result + ',' + data.printerStatus);
+    // setTracking('QT check print photo error:' + data.result + ',' + data.printerStatus);
     if(data.printerStatus == -2147483648)
       window.location.replace('error.html?error='+ LANG.ERROR_PRINTER_OFFLIE);
   }
