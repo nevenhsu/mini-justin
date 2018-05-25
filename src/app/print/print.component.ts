@@ -15,8 +15,7 @@ export class PrintComponent implements OnInit {
 
   ngOnInit() {
     this.images = this.searchService.imagesData;
-    printer.default.init();
-    console.log(printer.default);
+    printer.init();
   }
 
 }

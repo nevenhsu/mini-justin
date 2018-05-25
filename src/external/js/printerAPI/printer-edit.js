@@ -3,7 +3,7 @@
 //   console.log("2. Hello from external printer js!")
 // }
 
-export default { init, downloadImageCmd }
+export { init, downloadImageCmd, READY_STATUS }
 
 var wsUri = "ws://127.0.0.1:60089/";
 var output;
@@ -11,6 +11,7 @@ var print_count = 0;
 //var status = false;
 var timer_status;
 var retry_count = 0;
+var retryCount;
 var easyCard_retry_count = 0;
 var image_download_url = "";
 var QT_timer;
@@ -20,6 +21,9 @@ var print_photo_count = 0;
 var isPrinting = false; //開始列印設true, 訂單結束設false
 var printFinishCount = 1;
 var easyCardResult = false;
+var READY_STATUS;
+var websocket;
+
 
 function init()
 {
