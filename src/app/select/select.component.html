@@ -1,6 +1,6 @@
 <div class="wrapping">
 
-	<app-nav (tapLeftBtn)="goPrev($event)"
+	<app-nav (tapLeftBtn)="goPrev()"
 			 [title]="'Select photos'"
 			 [isShowLeftBtn]="true"
 			 class="nav d-block"
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div inViewport
-			 (inViewportAction)="reachBottom($event)"
+			 (inViewportAction)="reachBottom()"
 			 class="bottom d-block w-100 position-relative"></div>
 	</div>
 

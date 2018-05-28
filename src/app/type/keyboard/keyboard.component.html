@@ -1,7 +1,7 @@
 <form #form="ngForm" class="form text-center position-relative row">
   <input [matKeyboard]="'en-US'"
 		 (enterClick)="onClickEnter()"
-		 (blur)="onBlur($event)"
+		 (blur)="onBlur()"
 		 #keyword="ngModel"
          ngModel
 		 required
