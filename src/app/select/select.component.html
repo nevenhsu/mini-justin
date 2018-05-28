@@ -1,9 +1,10 @@
 <div class="wrapping">
 
-<app-nav (tapLeftBtn)="goPrev($event)"
-         [title]="'Select photos'"
-         [isShowLeftBtn]="true"
-         class="nav d-block"></app-nav>
+	<app-nav (tapLeftBtn)="goPrev($event)"
+			 [title]="'Select photos'"
+			 [isShowLeftBtn]="true"
+			 class="nav d-block"
+	></app-nav>
 
 	<div class="row m-0">
 		<div class="col-3 overflow-hidden">
@@ -15,12 +16,18 @@
 			</div>
 		</div>
 
-		<div appScrollTracker (reachBottom)="reachBottom($event)" class="container-images row col-9 m-0">
-			<div *ngFor="let image of images; index as i;" class="col-3 mb-4">
+		<div
+			 class="container-images row col-9 m-0"
+		>
+			<div *ngFor="let image of images; index as i;"
+				 class="col-3 mb-4">
 				<app-image-thumbnail [image]="image"
 				></app-image-thumbnail>
 			</div>
 		</div>
+		<div inViewport
+			 (inViewportAction)="reachBottom($event)"
+			 class="bottom d-block w-100 position-relative"></div>
 	</div>
 
 	<app-counter class="wrapping-counter"></app-counter>

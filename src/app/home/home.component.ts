@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from 'shared/search.service';
+import * as Cookies from '../../external/js/js.cookie.js';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
   // TODO: restructure return url on service
 
@@ -17,16 +19,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getHashTag();
+
+    // reset printer state to false
+    Cookies.set('printer', 'false');
   }
 
   async getHashTag() {
-    this.hashtag = await this.searchService.getHashTag('memopresso').then(res => {
+    this.hashtag = await this.searchService.getHashTag().then(res => {
       if (res['status'] === 'ok') {
-        return res['hashtag'];
+        return SearchService.getSafe(() =>  res['hashtags'][0].hashtag );
       }
       return '';
     });
-    localStorage.setItem('hashtagName', this.hashtag.name);
+    localStorage.setItem('hashtagName', SearchService.getSafe(() =>  this.hashtag.name ));
   }
 
   goNext(entry: string) {

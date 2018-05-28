@@ -18,6 +18,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   query: string;
   name: string;
   picUrl: string;
+  pedding: boolean; // is downloading images
   images: Array<PostImage> = []; // store all images
   postsData: PostsData; // store the newest data for updating view
   user?: User; // get selected user name from local storage
@@ -28,6 +29,7 @@ export class SelectComponent implements OnInit, OnDestroy {
               private searchService: SearchService) { }
 
   ngOnInit() {
+    this.pedding = false;
     this.sub = this.route.queryParams.subscribe(params => {
       this.entry = params['entry'];
       this.query = params['query'];
@@ -92,11 +94,15 @@ export class SelectComponent implements OnInit, OnDestroy {
   }
 
   async getPostImages() {
-    const AFTER = SearchService.getSafe(() => this.postsData.end_cursor);
+    this.pedding = true;
+    const AFTER: string = SearchService.getSafe(() => this.postsData.end_cursor) || '0';
     switch (this.entry) {
       case 'ig':
         // set variable and get posts data
-        const VARIABLES = {'id': this.user.pk.toString(), 'first': '30', 'after': AFTER};
+        const VARIABLES = {
+          query: this.user.pk.toString(),
+          after: AFTER
+        };
         this.postsData = await this.searchService.getPostsData('id', VARIABLES).then((data: PostsData) => {
           if (data.status === 'ok') {
             return data;
@@ -104,24 +110,31 @@ export class SelectComponent implements OnInit, OnDestroy {
         });
         // add images
         this.images = this.images.concat(this.postsData.images);
+        this.pedding = false;
         break;
       case 'tag':
-        const VARIABLES2 = {'tag_name': this.hashtagName, 'first': '30', 'after': AFTER};
+        const VARIABLES2 = {
+          query: this.hashtagName,
+          after: AFTER
+        };
         this.postsData = await this.searchService.getPostsData('tag', VARIABLES2).then((data: PostsData) => {
           if (data.status === 'ok') {
             return data;
           }
         });
         this.images = this.images.concat(this.postsData.images);
+        this.pedding = false;
         break;
       default:
+        this.pedding = false;
         break;
     }
   }
 
-  reachBottom(event: boolean) {
+  reachBottom() {
+    // if last data has images then keep downloading new images
     const TOTALIMAGES = SearchService.getSafe(() => this.postsData.images.length);
-    if (event && TOTALIMAGES > 0) {
+    if (TOTALIMAGES > 0 && !this.pedding) {
       this.getPostImages();
     }
   }

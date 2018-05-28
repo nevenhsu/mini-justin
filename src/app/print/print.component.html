@@ -1,10 +1,19 @@
 <div class="background-pattern absolute-center background-cover z-0 position-fixed"></div>
 
-<app-nav [title]="'Printing'"
-         [isShowLeftBtn]="false"
-         class="nav"></app-nav>
+<div class="wrapping position-relative text-center">
+	<app-nav [title]="'Printing'"
+			 [isShowLeftBtn]="false"
+			 class="nav d-block"></app-nav>
 
-<div class="absolute-center">
-	<img width="629" src="assets/images/printing.svg"/>
+	<div class="container-image">
+		<img width="629" src="assets/images/printing.svg"/>
+	</div>
+
+	<div class="row m-0">
+		<div class="progress-bar position-relative col-8 offset-2 p-0">
+			<div (animationend)="transitionEnd($event)"
+				 [style.animation]="'progress ' + duration + 's ease-in-out'"
+				 class="progress position-relative"></div>
+		</div>
+	</div>
 </div>
-

@@ -11,22 +11,27 @@ import * as printer from '../../external/js/printerAPI/printer-edit.js';
 })
 export class PrintComponent implements OnInit, OnDestroy {
   images: Array<string> = [];
+  duration: number; // seconds of progress bar
 
   constructor(private searchService: SearchService,
               private router: Router) { }
 
   ngOnInit() {
     this.images = this.searchService.imagesData;
-    this.checkImages();
-    printer.init();
-    this.checkStatus();
+    this.duration = 30 * this.images.length; // 30 sec for each images
+    this.checkImages(() => {
+      printer.init();
+      // print images when printer is ready
+      this.checkState();
+    });
   }
 
   ngOnDestroy() {
+    // reset printer state to false
     printer.Cookies.set('printer', 'false');
   }
 
-  checkStatus() {
+  checkState() {
     // 0 is ready, 65537 is idle
     const STATE =  printer.Cookies.get('printer');
     if (STATE && printer.READY_STATUS) {
@@ -36,24 +41,34 @@ export class PrintComponent implements OnInit, OnDestroy {
     } else {
       // wait websocket connected and retry
       setTimeout(() => {
-        this.checkStatus();
+        console.log('JESS: Websocket is not ready. Retrying.');
+        this.checkState();
       }, 500);
     }
   }
 
   startPrint() {
+    console.log('JESS: Start printing photos.');
     for (let i = 0; i < this.images.length; i++) {
       const IMAGE = this.images[i];
       printer.downloadImageCmd(IMAGE);
     }
   }
 
-  checkImages() {
+  checkImages(callback) {
     if (this.images.length === 0) {
-      console.log('Error: no images data for printing');
+      console.log('JESS: No images data for printing. Return home.');
       this.router.navigate(['']);
-      return;
+    } else {
+      // images exist
+      callback();
     }
+  }
+
+  transitionEnd(e) {
+    console.log('JESS: Printing is done. Return home.', e);
+    // when animation ends then return home page
+    this.router.navigate(['']);
   }
 
 }

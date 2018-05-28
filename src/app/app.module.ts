@@ -9,6 +9,7 @@ import { MatKeyboardModule } from '@ngx-material-keyboard/core';
 import { MatButtonModule } from '@angular/material';
 import { AngularCropperjsModule } from 'angular-cropperjs';
 import { NguCarouselModule } from '@ngu/carousel';
+import { InViewportModule } from 'ng-in-viewport';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -21,13 +22,13 @@ import { ChooseIgComponent } from './type/choose-ig/choose-ig.component';
 import { ImageThumbnailComponent } from 'shared/image-thumbnail/image-thumbnail.component';
 import { CounterComponent } from './select/counter/counter.component';
 import { PhotoComponent } from './preview/photo/photo.component';
-
-import { SearchService } from 'shared/search.service';
-import { ScrollTrackerDirective } from 'shared/scroll-tracker.directive';
-import { AutofocusDirective } from 'shared/autofocus.directive';
-import { ImageDimensionDirective } from 'shared/image-dimension.directive';
 import { PrintComponent } from './print/print.component';
 import { KeyboardComponent } from './type/keyboard/keyboard.component';
+
+import { SearchService } from 'shared/search.service';
+import { AutofocusDirective } from 'shared/autofocus.directive';
+import { ImageDimensionDirective } from 'shared/image-dimension.directive';
+
 
 
 
@@ -52,24 +53,26 @@ export class MyHammerConfig extends HammerGestureConfig {
       enable: false
     }
   };
+  options = {
+    touchAction: 'pan-y'
+  };
 }
 
 
 @NgModule({
   declarations: [
+    AutofocusDirective,
+    ImageDimensionDirective,
     AppComponent,
     HomeComponent,
     TypeComponent,
     SelectComponent,
     PreviewComponent,
-    AutofocusDirective,
     NavComponent,
     ChooseIgComponent,
     ImageThumbnailComponent,
-    ScrollTrackerDirective,
     CounterComponent,
     PhotoComponent,
-    ImageDimensionDirective,
     PrintComponent,
     KeyboardComponent,
   ],
@@ -82,6 +85,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     NgbModule.forRoot(),
     AngularCropperjsModule,
     NguCarouselModule,
+    InViewportModule.forRoot(),
     // Material modules
     MatButtonModule,
     MatKeyboardModule

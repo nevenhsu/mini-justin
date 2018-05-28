@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  root: '',
+  hashtag: 'assets/hashtag.json',
+  search: 'assets/search-result.json',
+  hashtagImage: 'assets/image-hashtag.json',
+  IdImage: 'assets/image-id.json',
+  SESSION_ID: '',
+  SESSION_ID2: '',
+  QUERY_USERNAME: '',
+  QUERY_HASHTAG: ''
 };
 
 /*

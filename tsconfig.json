@@ -19,7 +19,8 @@
     ],
     "paths": {
       "shared/*": ["app/shared/*"],
-      "assets/*": ["assets/*"]
+      "assets/*": ["assets/*"],
+      "environments/*": ["environments/*"]
     }
   }
 }

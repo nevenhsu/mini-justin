@@ -1,0 +1,37 @@
+@import "../shared/custom-variables";
+
+.wrapping {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.nav {
+  margin-bottom: 8rem;
+}
+
+.container-image {
+  margin-bottom: 6rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 3rem;
+  overflow: hidden;
+  background-color: $color-bar-back;
+  border-radius: 1.5rem;
+}
+
+.progress {
+  height: 100%;
+  border-radius: 1.5rem;
+  background-color: $color-bar-top;
+}
+
+@keyframes progress {
+  from {width: 0;}
+  to {width: 100%;}
+}
+
+
+

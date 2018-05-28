@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "start-prod": "ng serve --environment=prod",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -30,6 +31,8 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "html2canvas": "^1.0.0-alpha.12",
+    "intersection-observer": "^0.5.0",
+    "ng-in-viewport": "^1.2.7-hotfix.1",
     "ng2-konva": "^2.0.6",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.1.0",

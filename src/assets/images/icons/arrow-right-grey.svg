@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="96px" height="96px" viewBox="0 0 96 96" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow-right-grey</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="arrow-right-grey" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(48.000000, 48.000000) scale(-1, 1) translate(-48.000000, -48.000000) ">
+            <circle id="Oval-3" fill="#D3D3D3" cx="48" cy="48" r="48"></circle>
+            <path d="M30.5273898,45.2781956 L51.1755219,23.0417457 C52.6787329,21.422903 55.2096575,21.3291651 56.8285002,22.8323761 C56.8646721,22.8659642 56.9002191,22.9002191 56.935123,22.935123 L59.3165227,25.3165227 C60.8208494,26.8208494 60.884454,29.2394955 59.4612721,30.8208087 L44,48 L59.4612721,65.1791913 C60.884454,66.7605045 60.8208494,69.1791506 59.3165227,70.6834773 L56.935123,73.064877 C55.3730258,74.6269742 52.8403659,74.6269742 51.2782687,73.064877 C51.2433648,73.0299731 51.20911,72.9944261 51.1755219,72.9582543 L30.5273898,50.7218044 C29.1022884,49.1870798 29.1022884,46.8129202 30.5273898,45.2781956 Z" id="Path-2" fill="#515151"></path>
+        </g>
+    </g>
+</svg>

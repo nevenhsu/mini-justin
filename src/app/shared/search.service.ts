@@ -1,23 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'environments/environment';
 
 
 @Injectable()
 export class SearchService {
-  private apiRoot = 'http://app.memopresso.com';
-  private apiSearch = 'assets/search-result.json';
-  private apiHashtag = 'assets/hashtag.json';
-  private apiHashtagImage = 'assets/image-hashtag.json';
-  private apiIdImage = 'assets/image-id.json';
-
   // TODO: use BehaviorSubject instead
   private subject: Subject<PostImage[]> = new Subject();
   public _images: Array<PostImage> = [];
   public images$ = this.subject.asObservable();
   public imagesData: string[] = [];
-
   public prevUrl: {url: string, queryParams?: Object};
 
   static getSafe(fn) {
@@ -30,9 +24,9 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  getHashTag(term: string): Promise<any> {
+  getHashTag(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.apiHashtag)
+      this.http.get(environment.hashtag)
         .toPromise()
         .then(
           res => {// Success
@@ -47,7 +41,9 @@ export class SearchService {
 
   getSearch(term: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.apiSearch)
+      if (isDevMode()) {term = ''; }
+      // http://app.memopresso.com/api/instagram/search/ + term
+      this.http.get(`${environment.search}/${term}`)
         .toPromise()
         .then(
           res => {// Success
@@ -60,13 +56,21 @@ export class SearchService {
     });
   }
 
-  getPostsData(resource: string, variables: object): Promise<PostsData> {
+  getPostsData(resource: string, variables: {query: string, after: string}): Promise<PostsData> {
     const VARIABLES = JSON.stringify(variables);
+    if (isDevMode()) {
+      variables = {
+        query: '',
+        after: ''
+      };
+    }
 
     switch (resource) {
       case 'tag':
         return new Promise((resolve, reject) => {
-          this.http.get(this.apiHashtagImage)
+          // 'http://127.0.0.1:8080/ + hashtag/'+ igid + '/' + end_cursor+'/' + SESSION_ID +'/'+ QUERY_HASHTAG;
+          // VARIABLES2 = {'query': this.hashtagName, 'after': AFTER};
+          this.http.get(`${environment.root}/${environment.hashtagImage}/${variables.query}/${variables.after}/${environment.SESSION_ID}/${environment.QUERY_HASHTAG}`)
             .toPromise()
             .then(
               res => {// Success
@@ -89,7 +93,10 @@ export class SearchService {
         });
       case 'id':
         return new Promise((resolve, reject) => {
-          this.http.get(this.apiIdImage)
+
+          // 'http://127.0.0.1:8080/ + username/'+ pk + '/' + end_cursor+'/' + SESSION_ID2 +'/'+ QUERY_USERNAME;
+          // VARIABLES = {'query': this.user.pk.toString(), 'after': AFTER};
+          this.http.get(`${environment.root}/${environment.IdImage}/${variables.query}/${variables.after}/${environment.SESSION_ID2}/${environment.QUERY_USERNAME}`)
             .toPromise()
             .then(
               res => {// Success

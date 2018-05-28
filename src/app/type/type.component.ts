@@ -1,6 +1,4 @@
-import {
-  ChangeDetectorRef, Component, OnDestroy, OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SearchService } from 'shared/search.service';
@@ -19,8 +17,7 @@ export class TypeComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private searchService: SearchService,
-              private cd: ChangeDetectorRef) { }
+              private searchService: SearchService) { }
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
