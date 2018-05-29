@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
 
     // reset printer state to false
     Cookies.set('printer', 'false');
+    this.searchService.clearImages();
   }
 
   async getHashTag() {

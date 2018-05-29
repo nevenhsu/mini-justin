@@ -128,6 +128,11 @@ export class SearchService {
     this.subject.next(this._images);
   }
 
+  clearImages() {
+    this._images  = [];
+    this.subject.next(this._images);
+  }
+
   savePrevUrl(route: ActivatedRoute) {
     this.prevUrl = { url: route.snapshot.routeConfig.path, queryParams: route.snapshot.queryParams};
   }

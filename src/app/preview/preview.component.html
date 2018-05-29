@@ -70,7 +70,7 @@
 					></app-photo>
 				</div>
 				<p class="photo-text">{{ img.edge_media_to_caption?.edges[0]?.node?.text }}</p>
-				<p class="photo-date">{{img.taken_at_timestamp * 1000 | date:'yyyy-MM-dd'}}</p>
+				<p class="photo-date">{{ img.taken_at_timestamp * 1000 | date:'yyyy-MM-dd' }}</p>
 				<img class="photo-logo" src="assets/images/logo-brown.svg">
 			</div>
 		</div>
@@ -78,6 +78,6 @@
 </div>
 
 	<!--test-->
-<!--<div *ngFor="let image of testimages">-->
-	<!--<img width="500" [src]="image" />-->
-<!--</div>-->
+<div *ngFor="let image of testimages">
+	<img width="500" [src]="image" />
+</div>

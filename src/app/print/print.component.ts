@@ -29,6 +29,7 @@ export class PrintComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // reset printer state to false
     printer.Cookies.set('printer', 'false');
+    this.searchService.clearImages();
   }
 
   checkState() {
@@ -65,8 +66,8 @@ export class PrintComponent implements OnInit, OnDestroy {
     }
   }
 
-  transitionEnd(e) {
-    console.log('JESS: Printing is done. Return home.', e);
+  transitionEnd() {
+    console.log('JESS: Printing is done. Return home.');
     // when animation ends then return home page
     this.router.navigate(['']);
   }

@@ -30,6 +30,8 @@ export class ImageThumbnailComponent implements OnInit {
     this.quantity += 1;
     let i = this.searchService._images.indexOf(this.image);
     i = i >= 0 ? i : 0;
+
+    // TODO: rewrite function
     this.searchService._images.splice(i, 0, this.image);
     this.searchService.updateImages();
   }
@@ -37,6 +39,8 @@ export class ImageThumbnailComponent implements OnInit {
   remove() {
     if (this.quantity === 0) {return; }
     this.quantity -= 1;
+
+    // TODO: rewrite function
     this.searchService._images.splice(this.searchService._images.indexOf(this.image), 1);
     this.searchService.updateImages();
   }

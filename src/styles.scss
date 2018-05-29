@@ -1,50 +1,21 @@
 @import "app/shared/_custom-variables";
 
 // import fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-@import url('//fonts.googleapis.com/earlyaccess/notosanstc.css');
+@import url('//fonts.googleapis.com/earlyaccess/notosanstc.css'); // Noto TC for chinese
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
   src: url('./assets/font/Material_Icons.woff2') format('woff2');
 }
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('./assets/font/notosans-black-webfont.woff2') format('woff2'),
-  url('./assets/font/notosans-black-webfont.woff') format('woff');
-  font-weight: 900;
-  font-style: normal;
-
-}
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('./assets/font/notosans-bold-webfont.woff2') format('woff2'),
-  url('./assets/font/notosans-bold-webfont.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-
-}
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('./assets/font/notosans-semibold-webfont.woff2') format('woff2'),
-  url('./assets/font/notosans-semibold-webfont.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('./assets/font/notosans-regular-webfont.woff2') format('woff2'),
-  url('./assets/font/notosans-regular-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
 
 // overwrite bootstrap variables
 $body-bg: $color-white;
 $grid-gutter-width: 24px;
 $btn-border-width: 0;
-$font-family-sans-serif: 'Noto Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family-sans-serif: 'Source Sans Pro', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // import only the Bootstrap modules you need, e.g.
 @import "../node_modules/bootstrap/scss/functions";
@@ -83,7 +54,7 @@ textarea {
 }
 
 .material-icons {
-  font-family: 'Material Icons';
+  font-family: 'Material Icons', sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -236,15 +207,9 @@ p {
   z-index: 1070;
 }
 
-// carousel
-//.ngucarousel-items {
-//  display: inline-flex !important;
-//}
-
 
 // virtual keyboard
 // @ngx-material-keyboard/core
-
 mat-keyboard-container {
   overflow: hidden !important;
   width: 100vw !important;

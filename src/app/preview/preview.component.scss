@@ -25,7 +25,7 @@
 .photo-text {
   font-size: 11px;
   line-height: 17px;
-  font-weight: normal;
+  font-weight: 600;
   color: $color-black;
   overflow: hidden;
   max-height: 68px;
@@ -35,7 +35,7 @@
 
 .photo-date {
   position: absolute;
-  bottom: 0.25rem;
+  bottom: 1.5rem;
   left: 1rem;
   font-size: 10px;
   line-height: 15px;
@@ -45,9 +45,9 @@
 
 .photo-logo {
   position: absolute;
-  bottom: 0.5rem;
+  bottom: 1.5rem;
   right: 1rem;
-  height: 10px;
+  height: 12px;
 }
 
 .photo-right {

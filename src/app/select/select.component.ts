@@ -60,8 +60,8 @@ export class SelectComponent implements OnInit, OnDestroy {
       default:
         this.router.navigate(['']);
     }
-    this.searchService._images = [];
-    this.searchService.updateImages();
+
+    this.searchService.clearImages();
   }
 
   setPage() {
