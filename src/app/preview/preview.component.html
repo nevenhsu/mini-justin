@@ -61,7 +61,8 @@
 			 class="photos row visible position-relative"
 		>
 			<div *ngFor="let img of images; index as i"
-				 [class.thin-border-right]="i % 2 == 0"
+				 [class.print-left]="i % 2 === 0"
+				 [class.print-right]="i % 2 !== 0"
 				 class="photo col-6">
 				<div class="visible mb-2">
 					<app-photo #photo
@@ -78,6 +79,8 @@
 </div>
 
 	<!--test-->
-<!--<div *ngFor="let image of testimages">-->
-	<!--<img width="500" [src]="image" />-->
-<!--</div>-->
+<ng-container *ngIf="isDevMode">
+	<div *ngFor="let image of testimages">
+		<img width="500" [src]="image" />
+	</div>
+</ng-container>

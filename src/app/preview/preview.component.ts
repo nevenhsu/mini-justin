@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, isDevMode, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from 'shared/search.service';
 import { Subscription } from 'rxjs';
@@ -20,6 +20,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
   photosReady: number; // is all photo ready to extract data
   isPending: boolean; // is generating images
   testimages: Array<string> = []; // for test
+  isDevMode = isDevMode();
 
   constructor(private router: Router, private searchService: SearchService) { }
 
@@ -113,7 +114,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
         if (this.searchService.imagesData.length === this.imagesURL.length) {
           console.log('Successfully export images data! ');
           this.isPending = false;
-          this.router.navigate(['print']);
+          if (!this.isDevMode) {
+            this.router.navigate(['print']);
+          }
         } else {
           this.isPending = false;
           console.log('ERROR: canvas exports are not completed! \n DataUrls Number:', this.searchService.imagesData.length);

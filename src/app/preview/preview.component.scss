@@ -35,7 +35,7 @@
 
 .photo-date {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 1rem;
   left: 1rem;
   font-size: 10px;
   line-height: 15px;
@@ -45,7 +45,7 @@
 
 .photo-logo {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 1rem;
   right: 1rem;
   height: 12px;
 }
@@ -74,9 +74,15 @@
   border: $border-grey;
 }
 
-.thin-border-right {
-  border-right: $border-grey;
+// adjust print position
+.print-left {
+  left: 2px;
 }
+
+.print-right {
+  right: 6px;
+}
+
 
 .carousel {
   position: absolute;

@@ -12,13 +12,15 @@ import * as printer from '../../external/js/printerAPI/printer-edit.js';
 export class PrintComponent implements OnInit, OnDestroy {
   images: Array<string> = [];
   duration: number; // seconds of progress bar
+  retry: 0;
 
   constructor(private searchService: SearchService,
               private router: Router) { }
 
   ngOnInit() {
     this.images = this.searchService.imagesData;
-    this.duration = 30 * this.images.length; // 30 sec for each images
+    printer.setTotolImages(this.images.length * 2);
+    this.duration = 20 * this.images.length; // 30 sec for each images
     this.checkImages(() => {
       printer.init();
       // print images when printer is ready
@@ -29,22 +31,26 @@ export class PrintComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // reset printer state to false
     printer.Cookies.set('printer', 'false');
+    printer.clearChecking();
     this.searchService.clearImages();
   }
 
   checkState() {
     // 0 is ready, 65537 is idle
     const STATE =  printer.Cookies.get('printer');
+    console.log('JESS: Printer state: ', STATE);
     if (STATE && printer.READY_STATUS) {
       setTimeout(() => {
         this.startPrint();
       }, 500);
     } else {
       // wait websocket connected and retry
+      if (this.retry > 20) {return; }
       setTimeout(() => {
         console.log('JESS: Websocket is not ready. Retrying.');
         this.checkState();
-      }, 500);
+        this.retry++;
+      }, 1000);
     }
   }
 

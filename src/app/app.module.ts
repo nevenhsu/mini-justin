@@ -1,5 +1,5 @@
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,8 +28,6 @@ import { KeyboardComponent } from './type/keyboard/keyboard.component';
 import { SearchService } from 'shared/search.service';
 import { AutofocusDirective } from 'shared/autofocus.directive';
 import { ImageDimensionDirective } from 'shared/image-dimension.directive';
-
-
 
 
 const appRoutes: Routes = [

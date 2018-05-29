@@ -439,7 +439,7 @@
 		else //DNP
 			READY_STATUS = 65537;
 
-		if(data.printer == 'HITI')
+		if (data.printer == 'HITI')
 			Cookies.set('printer','false');
 		else
 			Cookies.set('printer','true');
