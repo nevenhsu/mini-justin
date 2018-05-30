@@ -24,10 +24,12 @@ import { CounterComponent } from './select/counter/counter.component';
 import { PhotoComponent } from './preview/photo/photo.component';
 import { PrintComponent } from './print/print.component';
 import { KeyboardComponent } from './type/keyboard/keyboard.component';
+import { BubbleComponent } from 'shared/bubble/bubble.component';
 
 import { SearchService } from 'shared/search.service';
 import { AutofocusDirective } from 'shared/autofocus.directive';
 import { ImageDimensionDirective } from 'shared/image-dimension.directive';
+
 
 
 const appRoutes: Routes = [
@@ -73,6 +75,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     PhotoComponent,
     PrintComponent,
     KeyboardComponent,
+    BubbleComponent,
   ],
   imports: [
     BrowserModule,

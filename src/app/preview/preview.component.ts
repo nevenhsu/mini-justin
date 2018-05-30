@@ -109,7 +109,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
       }
 
       this.exportImages(nativeElements, () => {
-        // TODO: should use observable in goNext
+        // TODO: should use observable in go Next
         // when all stored then go print
         if (this.searchService.imagesData.length === this.imagesURL.length) {
           console.log('Successfully export images data! ');

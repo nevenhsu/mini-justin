@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from 'shared/search.service';
-import * as Cookies from '../../external/js/js.cookie.js';
 
 @Component({
   selector: 'app-home',

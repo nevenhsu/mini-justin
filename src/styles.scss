@@ -134,10 +134,10 @@ p {
   margin: 0;
 }
 .font-weight-black {
-  font-weight: 900;
+  font-weight: 900 !important;
 }
 .font-weight-semibold {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 
@@ -225,7 +225,7 @@ mat-keyboard-container {
   background-color: #ECEFF1 !important;
   width: 100% !important;
   min-width: 992px !important;
-  padding: 1em 11em !important;
+  padding: 1em 6em !important;
 }
 
 .mat-keyboard-key {
@@ -250,12 +250,14 @@ mat-keyboard-container {
   background-color: #E0E3E5 !important;
 }
 
-.mat-keyboard-key- {
+.mat-keyboard-key {
   background-color: #FBFCFC !important;
+  height: 64px;
 }
 
 .mat-keyboard-key-enter {
   background-color: #F28AB7 !important;
+  min-width: 96px !important;
 }
 
 

@@ -444,19 +444,15 @@ DNP printerStatus
   if (data.result) {
     if (data.printer === 'HITI') {
       READY_STATUS = 0;
-      console.log('JESS: set ready status: ', READY_STATUS, data.result);
     } else {
       //DNP
       READY_STATUS = 65537;
-      console.log('JESS: set ready status: ', READY_STATUS, data.result);
     }
 
     if (data.printer == 'HITI') {
       Cookies.set('printer', 'false');
-      console.log('JESS: cookies set printer false', data.printer);
     } else {
       Cookies.set('printer', 'true');
-      console.log('JESS: cookies set printer true', data.printer);
     }
 
     printerStatus = data.printerStatus;

@@ -14,16 +14,12 @@ export class ImageThumbnailComponent implements OnInit {
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
-    // check if service include this image
-    const EXIST = JSON.stringify(this.searchService._images).indexOf(JSON.stringify(this.image)) > - 1;
-    if (EXIST) {
-      // count how many images on service
-      this.searchService._images.forEach(image => {
-        if (image.id === this.image.id) {
-          this.quantity += 1;
-        }
-      });
-    }
+    // count how many images on service
+    this.searchService._images.forEach(image => {
+      if (image.id === this.image.id) {
+        this.quantity += 1;
+      }
+    });
   }
 
   add() {

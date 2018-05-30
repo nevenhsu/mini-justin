@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="753px" height="95px" viewBox="0 0 753 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 8</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M12,1.65861336e-15 L705,1.77635684e-15 C711.627417,-6.41906962e-14 717,5.372583 717,12 L717,27.5 L734,37.5 L717,47.5 L717,63 C717,69.627417 711.627417,75 705,75 L12,75 C5.372583,75 2.020752e-16,69.627417 -3.55271368e-15,63 L-3.55271368e-15,12 C-4.36433818e-15,5.372583 5.372583,2.99379359e-15 12,1.77635684e-15 Z" id="path-1"></path>
+        <filter x="-2.4%" y="-16.7%" width="104.8%" height="146.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.247905344 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="miniJustin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="error_message" transform="translate(-372.000000, -654.000000)">
+            <g transform="translate(382.000000, 659.000000)" id="Rectangle-8">
+                <g>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#F28AB7" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

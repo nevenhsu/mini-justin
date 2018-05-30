@@ -1,4 +1,5 @@
-<div class="photo position-relative m-0">
+<div [class.shadow]="quantity > 0"
+     class="photo position-relative m-0">
   <img class="image position-absolute absolute-center d-block" [src]="image.thumbnail_src"/>
 
   <div class="container-cal text-center position-absolute absolute-center">

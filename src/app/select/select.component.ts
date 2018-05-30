@@ -18,6 +18,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   query: string;
   name: string;
   picUrl: string;
+  isShowError: boolean; // should select one more
   pedding: boolean; // is downloading images
   images: Array<PostImage> = []; // store all images
   postsData: PostsData; // store the newest data for updating view
@@ -62,6 +63,24 @@ export class SelectComponent implements OnInit, OnDestroy {
     }
 
     this.searchService.clearImages();
+  }
+
+  onNext(isActivated: boolean) {
+    if (isActivated) {
+      this.searchService.savePrevUrl(this.route);
+      this.router.navigate(['preview']);
+    } else {
+      if (this.isShowError) {return; }
+
+      // show error bubble
+      this.isShowError = true;
+      // auto hide
+      setTimeout(() => {
+        if (this.isShowError) {
+          this.isShowError = false;
+        }
+      }, 5000);
+    }
   }
 
   setPage() {

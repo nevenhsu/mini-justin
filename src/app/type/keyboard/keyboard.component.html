@@ -1,4 +1,6 @@
-<form #form="ngForm" class="form text-center position-relative row">
+<form #form="ngForm"
+	  autocomplete="off"
+	  class="form text-center position-relative row">
   <input [matKeyboard]="'en-US'"
 		 (enterClick)="onClickEnter()"
 		 (blur)="onBlur()"
@@ -7,6 +9,9 @@
 		 required
 		 appAutofocus
          name="keyword"
+		 type="text"
+		 autocomplete="something-new"
+		 aria-hidden="true"
          class="keyword col-6 offset-3 text-center font-weight-semibold"/>
   <p *ngIf="keyword.value === ''"
 	 class="placeholder position-absolute absolute-center font-weight-semibold">Type in Instagram username</p>

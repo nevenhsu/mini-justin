@@ -8,7 +8,8 @@
                 </span>
                 <span><h3 class="text color-grey-light">selected</h3></span>
 
-                <button (tap)="goNext()"
+                <button [@headShake]="isShake"
+						(tap)="onNext()"
                         [class.btn-disable]="!isActivated"
                         class="btn-next d-block text-center mt-4"
                         [disabled]="!isActivated"

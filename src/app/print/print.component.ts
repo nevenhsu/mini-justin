@@ -12,7 +12,6 @@ import * as printer from '../../external/js/printerAPI/printer-edit.js';
 export class PrintComponent implements OnInit, OnDestroy {
   images: Array<string> = [];
   duration: number; // seconds of progress bar
-  retry = 0;
 
   constructor(private searchService: SearchService,
               private router: Router) { }
@@ -47,10 +46,8 @@ export class PrintComponent implements OnInit, OnDestroy {
 
     } else {
       // wait websocket connected and retry
-      if (this.retry > 10) {return; }
       setTimeout(() => {
         this.checkState();
-        this.retry++;
       }, 1000);
     }
   }
@@ -78,12 +75,13 @@ export class PrintComponent implements OnInit, OnDestroy {
   checkPrintFinish() {
     setTimeout( () => {
       const CHECKFINISH = setInterval( () => {
+        console.log('JESS: check isFinish state');
         if (printer.isFinish) {
           clearInterval(CHECKFINISH);
           this.transitionEnd();
         }
       }, 2000);
-    }, 10000 * this.images.length);
+    }, 8000 * this.images.length);
   }
 
   transitionEnd() {

@@ -7,8 +7,8 @@
 	></app-nav>
 
 	<div class="row m-0">
-		<div class="col-3 overflow-hidden">
-			<div class="container-profile text-center">
+		<div class="col-3 overflow-hidden position-relative">
+			<div class="container-profile position-fixed text-center">
 				<div class="container-pic mb-4">
 					<img class="pic" [src]="picUrl" />
 				</div>
@@ -30,6 +30,10 @@
 			 class="bottom d-block w-100 position-relative"></div>
 	</div>
 
-	<app-counter class="wrapping-counter"></app-counter>
+	<app-counter (goNext)="onNext($event)"
+				 class="wrapping-counter"
+	></app-counter>
+	<app-bubble [isShow]="isShowError" class="bubble z-1070"
+	></app-bubble>
 </div>
 
