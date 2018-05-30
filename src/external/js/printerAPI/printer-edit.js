@@ -3,7 +3,7 @@
 // }
 import * as Cookies from "../js.cookie.js";
 
-export {init, downloadImageCmd, Cookies, READY_STATUS, setTotolImages, clearChecking}
+export {init, downloadImageCmd, printerStatus, setTotolImages, isFinish}
 
 var wsUri = "ws://127.0.0.1:60089/";
 var output;
@@ -23,6 +23,7 @@ var isPrinting = false; //開始列印設true, 訂單結束設false
 var printFinishCount = 1;
 var easyCardResult = false;
 var READY_STATUS;
+var printerStatus;
 var websocket;
 var PAPER_OUT;
 var printer_paper_count;
@@ -31,6 +32,7 @@ var foto_price;
 var mergedPhotos;
 var PRINTER;
 var isDownloading;
+var isFinish;
 
 function init() {
   //output = document.getElementById("output");
@@ -38,6 +40,9 @@ function init() {
   printFinishCount = 1;
   print_count = 0;
   isDownloading = false;
+  printerStatus = undefined;
+  isFinish = false;
+  Cookies.set('printer', 'false');
 
   websocket = new WebSocket(wsUri);
 
@@ -183,7 +188,7 @@ function downloadImageCmd(url) {
       websocket.send('{"command": "0400","imageUrl":"' + url + '"}');
       isDownloading = true;
     }
-  }, 2000);
+  }, 3000);
 
 }
 
@@ -439,20 +444,29 @@ DNP printerStatus
   if (data.result) {
     if (data.printer === 'HITI') {
       READY_STATUS = 0;
-    } else { //DNP
+      console.log('JESS: set ready status: ', READY_STATUS, data.result);
+    } else {
+      //DNP
       READY_STATUS = 65537;
+      console.log('JESS: set ready status: ', READY_STATUS, data.result);
     }
 
     if (data.printer == 'HITI') {
       Cookies.set('printer', 'false');
+      console.log('JESS: cookies set printer false', data.printer);
     } else {
       Cookies.set('printer', 'true');
+      console.log('JESS: cookies set printer true', data.printer);
     }
 
+    printerStatus = data.printerStatus;
+    console.log('JESS: check printer status: ', printerStatus);
+
     if (isPrinting === true && data.printerStatus === READY_STATUS && print_photo_count === foto_index) {
+      console.log('JESS: is finish printing.');
       clearInterval(timer_status);
       isPrinting = false;
-
+      isFinish = true;
       // print_counter(1);
     }
 
@@ -497,11 +511,6 @@ DNP printerStatus
     window.location.replace('error.html?error=' + LANG.ERROR_PRINTING);
 }
 
-function clearChecking() {
-  clearInterval(timer_status);
-  isPrinting = false;
-}
-
 function checkDoCommand(data) {
   if (data.result) {
 
@@ -542,7 +551,7 @@ function checkDownloadImage(data) {
 
   //setTracking('QT check download image:' + data.result);
   //clearTimeout(QT_timer);
-  console.log("JESS: Check download image, total images: ", foto_index);
+  console.log("JESS: Check download image.");
 
   if (data.result) {
     arr_printPhoto[print_count / 2] = data.imagePath;
@@ -592,16 +601,16 @@ function checkPrintImage(data) {
     print_photo_count += 2;
 
     if (print_photo_count === foto_index) {
-      //timer_status = setInterval(function(){
-      //	getPrintStatusCmd();
-      //}, 10000);
-
-      var sleepTime = foto_index / 2 * 20 * 1000; //一張20s
       setTimeout(function () {
         checkPrintFinish();
-      }, sleepTime);
+      }, 10000);
 
-      return;
+      // var sleepTime = foto_index / 2 * 20 * 1000; //一張20s
+      //
+      // setTimeout(function () {
+      //   checkPrintFinish();
+      // }, sleepTime);
+
     }
 
     // photo_status = setInterval(function () {
@@ -816,7 +825,7 @@ function updatePromoCode() {
 }
 
 function checkPrintFinish() {
-  console.log('checkPrintFinish');
+  console.log('JESS: check Print Finish');
   timer_status = setInterval(function () {
     getPrintStatusCmd();
   }, 3000);

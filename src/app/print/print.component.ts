@@ -12,7 +12,7 @@ import * as printer from '../../external/js/printerAPI/printer-edit.js';
 export class PrintComponent implements OnInit, OnDestroy {
   images: Array<string> = [];
   duration: number; // seconds of progress bar
-  retry: 0;
+  retry = 0;
 
   constructor(private searchService: SearchService,
               private router: Router) { }
@@ -24,30 +24,31 @@ export class PrintComponent implements OnInit, OnDestroy {
     this.checkImages(() => {
       printer.init();
       // print images when printer is ready
-      this.checkState();
+      setTimeout( () => {
+        this.checkState();
+      }, 2000);
     });
   }
 
   ngOnDestroy() {
     // reset printer state to false
-    printer.Cookies.set('printer', 'false');
-    printer.clearChecking();
     this.searchService.clearImages();
   }
 
   checkState() {
     // 0 is ready, 65537 is idle
-    const STATE =  printer.Cookies.get('printer');
-    console.log('JESS: Printer state: ', STATE);
-    if (STATE && printer.READY_STATUS) {
+    if (printer.printerStatus) {
+      console.log('JESS: Websocket is ready.');
       setTimeout(() => {
         this.startPrint();
       }, 500);
+
+      this.checkPrintFinish();
+
     } else {
       // wait websocket connected and retry
-      if (this.retry > 20) {return; }
+      if (this.retry > 10) {return; }
       setTimeout(() => {
-        console.log('JESS: Websocket is not ready. Retrying.');
         this.checkState();
         this.retry++;
       }, 1000);
@@ -58,7 +59,9 @@ export class PrintComponent implements OnInit, OnDestroy {
     console.log('JESS: Start printing photos.');
     for (let i = 0; i < this.images.length; i++) {
       const IMAGE = this.images[i];
-      printer.downloadImageCmd(IMAGE);
+      setTimeout(() => {
+        printer.downloadImageCmd(IMAGE);
+      }, 3000 * i);
     }
   }
 
@@ -70,6 +73,17 @@ export class PrintComponent implements OnInit, OnDestroy {
       // images exist
       callback();
     }
+  }
+
+  checkPrintFinish() {
+    setTimeout( () => {
+      const CHECKFINISH = setInterval( () => {
+        if (printer.isFinish) {
+          clearInterval(CHECKFINISH);
+          this.transitionEnd();
+        }
+      }, 2000);
+    }, 10000 * this.images.length);
   }
 
   transitionEnd() {
