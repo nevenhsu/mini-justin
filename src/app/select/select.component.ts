@@ -18,6 +18,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   query: string;
   name: string;
   picUrl: string;
+  isPrivate: boolean; // is account private
   isShowError: boolean; // should select one more
   pedding: boolean; // is downloading images
   images: Array<PostImage> = []; // store all images
@@ -91,7 +92,10 @@ export class SelectComponent implements OnInit, OnDestroy {
         if (this.query === this.user.pk.toString()) {
           this.name = this.user.full_name;
           this.picUrl = this.user.profile_pic_url;
-          this.getPostImages();
+          this.getPostImages(() => {
+            // detect if account is private
+            this.isPrivate = this.postsData.count > 0 && this.images.length === 0;
+          });
         } else {
           this.goPrev();
         }
@@ -112,7 +116,7 @@ export class SelectComponent implements OnInit, OnDestroy {
     }
   }
 
-  async getPostImages() {
+  async getPostImages(callback?) {
     this.pedding = true;
     const AFTER: string = SearchService.getSafe(() => this.postsData.end_cursor) || '0';
     switch (this.entry) {
@@ -130,6 +134,7 @@ export class SelectComponent implements OnInit, OnDestroy {
         // add images
         this.images = this.images.concat(this.postsData.images);
         this.pedding = false;
+        if (typeof callback === 'function') { callback(); }
         break;
       case 'tag':
         const VARIABLES2 = {
@@ -143,9 +148,11 @@ export class SelectComponent implements OnInit, OnDestroy {
         });
         this.images = this.images.concat(this.postsData.images);
         this.pedding = false;
+        if (typeof callback === 'function') { callback(); }
         break;
       default:
         this.pedding = false;
+        if (typeof callback === 'function') { callback(); }
         break;
     }
   }
@@ -157,5 +164,7 @@ export class SelectComponent implements OnInit, OnDestroy {
       this.getPostImages();
     }
   }
+
+
 
 }

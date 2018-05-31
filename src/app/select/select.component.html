@@ -1,7 +1,7 @@
 <div class="wrapping">
 
 	<app-nav (tapLeftBtn)="goPrev()"
-			 [title]="'Select photos'"
+			 [title]="isPrivate ? 'Error' : 'Select photos'"
 			 [isShowLeftBtn]="true"
 			 class="nav d-block"
 	></app-nav>
@@ -24,13 +24,22 @@
 				<app-image-thumbnail [image]="image"
 				></app-image-thumbnail>
 			</div>
+
+
+			<div *ngIf="isPrivate"
+				 class="container-error position-absolute z-1070"
+			>
+				<img class="d-block" src="" />
+				<button class="btn-retry"></button>
+			</div>
 		</div>
 		<div inViewport
 			 (inViewportAction)="reachBottom()"
 			 class="bottom d-block w-100 position-relative"></div>
 	</div>
 
-	<app-counter (goNext)="onNext($event)"
+	<app-counter *ngIf="!isPrivate"
+				 (goNext)="onNext($event)"
 				 class="wrapping-counter"
 	></app-counter>
 	<app-bubble [isShow]="isShowError" class="bubble z-1070"

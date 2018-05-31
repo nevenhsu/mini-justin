@@ -8,7 +8,7 @@ export {init, downloadImageCmd, printerStatus, setTotolImages, isFinish}
 var wsUri = "ws://127.0.0.1:60089/";
 var output;
 var print_count = 0;
-//var status = false;
+var status = false;
 var photo_status;
 var timer_status;
 var retry_count = 0;
@@ -40,6 +40,8 @@ function init() {
   console.log('websocket');
   printFinishCount = 1;
   print_count = 0;
+  print_photo_count = 0;
+  retry_count = 0;
   isDownloading = false;
   printerStatus = undefined;
   isFinish = false;
@@ -162,12 +164,12 @@ function printImageCmd(imagePath) {
   //多張列印時，不檢查狀態(DNP)
   // if(1)
   // {
-  if(printFinishCount == 1) {
+  if (printFinishCount == 1) {
     console.log('JESS: print checking');
-    websocket.send('{"command": "0300","skipCheckPrinter":0,"id": "'+ printFinishCount +'","imagePath":"'+ imagePath +'"}');
+    websocket.send('{"command": "0300","skipCheckPrinter":0,"id": "' + printFinishCount + '","imagePath":"' + imagePath + '"}');
   } else {
     console.log('JESS: print no checking');
-    websocket.send('{"command": "0300","skipCheckPrinter":1,"id": "'+ printFinishCount +'","imagePath":"'+ imagePath +'"}');
+    websocket.send('{"command": "0300","skipCheckPrinter":1,"id": "' + printFinishCount + '","imagePath":"' + imagePath + '"}');
   }
   // }
   // else {
@@ -184,7 +186,7 @@ function downloadImageCmd(url) {
 
   // wait prev download done
   let download_status = setInterval(() => {
-    if ( !isDownloading) {
+    if (!isDownloading) {
       clearInterval(download_status);
       websocket.send('{"command": "0400","imageUrl":"' + url + '"}');
       isDownloading = true;
@@ -469,14 +471,17 @@ DNP printerStatus
 
     if (data.printer === 'HITI') {
       //0x500 (1280) 卡紙
-      if (data.printerStatus === 1024 || data.printerStatus === 1025)
+      if (data.printerStatus === 1024 || data.printerStatus === 1025) {
+        alert('Error: paper out');
         return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
-      else if (data.printerStatus === 769 || data.printerStatus === 768)
+      } else if (data.printerStatus === 769 || data.printerStatus === 768) {
+        alert('Error: ribbon out');
         return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
+      }
       //else if(data.printerStatus === 4096)
       //	return window.location.replace('error.html?error=印表機錯誤 0x1000!'); //晶片錯誤
-      else if (data.printerStatus === 4096 || data.printerStatus === 31 || data.printerStatus === 524288 || data.printerStatus === 512) //retry again
-      {
+      else if (data.printerStatus === 4096 || data.printerStatus === 31 || data.printerStatus === 524288 || data.printerStatus === 512) {
+        //retry again
         //setTracking('printer error :' + data.printerStatus);
 
         if (data.id !== 'RETRY') {
@@ -484,28 +489,48 @@ DNP printerStatus
             getPrinterStatus('RETRY');
           }, 5000);
         }
-        else
+        else {
+          alert(`Error: printer isn't ready`);
           return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
+        }
       }
-      else if (data.printerStatus !== 0 && data.printerStatus !== 2) //2 is busy
+      else if (data.printerStatus !== 0 && data.printerStatus !== 2) {
+        //2 is busy
+        alert(`Error: printer isn't ready`);
         return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
-      else if (data.printerStatus === 2 && isPrinting === false)
+      }
+      else if (data.printerStatus === 2 && isPrinting === false) {
+        alert(`Error: printer status is wrong`);
         return window.location.replace('error.html?error=印表機狀態錯誤!');
+      }
+
     }
     else {
-      if (data.printerStatus === 65544 || data.printerStatus === 65552)
+      if (data.printerStatus === 65544 || data.printerStatus === 65552) {
+        alert('Error: paper out or ribbon out');
         return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW + '(' + data.printerStatus + ')');
-      else if (data.printerStatus === -2147483648)
+      }
+
+      else if (data.printerStatus === -2147483648) {
+        alert(`Error: printer is offline`);
         return window.location.replace('error.html?error=' + LANG.ERROR_PRINTER_OFFLIE);
-      else if (data.printerStatus !== 65537 && data.printerStatus !== 65538)
+      }
+
+      else if (data.printerStatus !== 65537 && data.printerStatus !== 65538) {
+        alert(`Error: printer status is wrong`);
         return window.location.replace('error.html?error=' + LANG.ERROR_PRINTING);
+      }
     }
 
-    if (data.id == 'INITIAL')
+    if (data.id == 'INITIAL') {
       getRibbonCountCmd();
+    }
   }
-  else
+  else {
+    alert(`Error: Websocket didn't connect. Try to restart service.`);
     window.location.replace('error.html?error=' + LANG.ERROR_PRINTING);
+  }
+
 }
 
 function checkDoCommand(data) {
@@ -602,8 +627,8 @@ function checkPrintImage(data) {
       //   checkPrintFinish();
       // }, 20000);
 
-      var sleepTime = foto_index/2 * 20 *1000; //一張20s
-      setTimeout(function(){
+      var sleepTime = foto_index / 2 * 20 * 1000; //一張20s
+      setTimeout(function () {
         checkPrintFinish();
       }, sleepTime);
     }
@@ -619,8 +644,10 @@ function checkPrintImage(data) {
   else {
     console.log('JESS: checkPrintImage failed!');
     // setTracking('QT check print photo error:' + data.result + ',' + data.printerStatus);
-    if (data.printerStatus == -2147483648)
+    if (data.printerStatus == -2147483648) {
+      alert('Error: something goes wrong. Restart computer and printer.');
       window.location.replace('error.html?error=' + LANG.ERROR_PRINTER_OFFLIE);
+    }
   }
 }
 

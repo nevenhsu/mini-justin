@@ -81,7 +81,7 @@ export class PrintComponent implements OnInit, OnDestroy {
           this.transitionEnd();
         }
       }, 2000);
-    }, 8000 * this.images.length);
+    }, 10000 * this.images.length);
   }
 
   transitionEnd() {
