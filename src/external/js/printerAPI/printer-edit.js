@@ -598,16 +598,14 @@ function checkPrintImage(data) {
     print_photo_count += 2;
 
     if (print_photo_count === foto_index) {
-      setTimeout(function () {
-        checkPrintFinish();
-      }, 10000);
-
-      // var sleepTime = foto_index / 2 * 20 * 1000; //一張20s
-      //
       // setTimeout(function () {
       //   checkPrintFinish();
-      // }, sleepTime);
+      // }, 20000);
 
+      var sleepTime = foto_index/2 * 20 *1000; //一張20s
+      setTimeout(function(){
+        checkPrintFinish();
+      }, sleepTime);
     }
 
     // photo_status = setInterval(function () {
