@@ -33,6 +33,7 @@ var mergedPhotos;
 var PRINTER;
 var isDownloading;
 var isFinish;
+var LANG;
 
 function init() {
   //output = document.getElementById("output");
