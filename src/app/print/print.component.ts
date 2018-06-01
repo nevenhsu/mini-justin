@@ -35,16 +35,26 @@ export class PrintComponent implements OnInit, OnDestroy {
   }
 
   checkState() {
-    // 65537 is idle
-    if (printer.printerStatus) {
-      console.log('JESS: Websocket is ready.');
+    const STATUS = printer.printerStatus;
+    // 65537 or 0 is idle
+    if (STATUS === 65537 || STATUS === 0) {
+      console.log('JESS: Printer is ready.');
+
       setTimeout(() => {
         this.startPrint();
       }, 500);
-
       this.checkPrintFinish();
 
     } else {
+
+      // if occurs error, then go to error page
+      const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512];
+      if (ERRORS.indexOf(STATUS) !== -1 ) {
+        this.router.navigate(['error'], {queryParams: {error: STATUS}});
+        sessionStorage.setItem('isPrintOk', 'no');
+        return;
+      }
+
       // wait websocket connected and retry
       setTimeout(() => {
         this.checkState();
