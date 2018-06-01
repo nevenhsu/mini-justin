@@ -60,7 +60,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    this.postSub.unsubscribe();
+    if (this.postSub) {this.postSub.unsubscribe(); }
   }
 
   create2dArray(array: Array<any>) {
