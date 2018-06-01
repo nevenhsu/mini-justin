@@ -14,7 +14,7 @@ export const environment = {
   SESSION_ID2: '',
   QUERY_USERNAME: '',
   QUERY_HASHTAG: '',
-  sendMini: 'http://localhost:3000'
+  sendMini: 'http://app.memopresso.com/api/order/sendmini'
 };
 
 /*

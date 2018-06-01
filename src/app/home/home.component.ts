@@ -13,7 +13,8 @@ export class HomeComponent implements OnInit {
   // TODO: restructure return url on service
 
   hashtag: Hashtag;
-  isFirst?: string; // is first open website, value == null
+  isPrintOk?: string; // already print
+  trying = 0 ;
 
   constructor(private router: Router,
               private searchService: SearchService) { }
@@ -22,6 +23,10 @@ export class HomeComponent implements OnInit {
     this.getHashTag();
     this.searchService.clearImages();
     this.fistCheckPrinter();
+
+    const checking = setInterval(() => this.checkStatus(() => {
+      clearInterval(checking);
+    }), 2000);
   }
 
   async getHashTag() {
@@ -35,15 +40,28 @@ export class HomeComponent implements OnInit {
   }
 
   fistCheckPrinter() {
-    this.isFirst = sessionStorage.getItem('isFirst');
-    if (!this.isFirst) {
-      sessionStorage.setItem('isFirst', 'set mark');
-      this.printerInit();
+    this.isPrintOk = sessionStorage.getItem('isPrintOk');
+    if (this.isPrintOk !== 'ok') {
+      printer.init();
     }
   }
 
-  printerInit() {
-    printer.init();
+  checkStatus(callback) {
+    const STATUS = printer.printerStatus;
+    if (STATUS !== 65537 || STATUS !== 0 || STATUS !== 2 || STATUS  !== 65538) {
+      this.trying++;
+      if (this.trying > 15) {
+        callback();
+        return;
+      }
+      const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512];
+      if (ERRORS.indexOf(STATUS) !== -1 ) {
+        callback();
+        this.router.navigate(['error'], {queryParams: {error: STATUS}});
+      }
+    } else {
+      callback();
+    }
   }
 
   goNext(entry: string) {

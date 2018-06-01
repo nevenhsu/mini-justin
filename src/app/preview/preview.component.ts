@@ -20,6 +20,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
   photosReady: number; // is all photo ready to extract data
   isPending: boolean; // is generating images
   testimages: Array<string> = []; // for test
+  postSub: Subscription;
   isDevMode = isDevMode();
 
   constructor(private router: Router, private searchService: SearchService) { }
@@ -59,6 +60,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.postSub.unsubscribe();
   }
 
   create2dArray(array: Array<any>) {
@@ -173,20 +175,13 @@ export class PreviewComponent implements OnInit, OnDestroy {
       default:
         keyword = 'no_value';
     }
-
-    this.searchService.sendMiniUsage({
-      price: 25 * this.imagesURL.length * 2,
-      discount: 0,
-      promo_code: '',
-      photoFrom: 'INSTAGRAM',
-      lab: 'MINI',
-      isHashTag: 0,
-      account: keyword,
-      campaign_id: '267',
-      status: 'FINISHED',
-      paid: 0,
-      payment: 'CASH',
-      quantity: this.imagesURL.length * 2
+    
+    const QUANTITY = this.imagesURL.length * 2;
+    if (this.isDevMode) {keyword = 'test'; }
+    this.postSub = this.searchService.sendMiniUsage(keyword, QUANTITY).subscribe((data) => {
+      console.log('GET Done: ', data);
+    }, (error) => {
+      console.log('GET Error: ', error);
     });
   }
 

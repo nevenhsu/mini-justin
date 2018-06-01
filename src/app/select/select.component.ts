@@ -94,7 +94,7 @@ export class SelectComponent implements OnInit, OnDestroy {
           this.picUrl = this.user.profile_pic_url;
           this.getPostImages(() => {
             // detect if account is private
-            this.isPrivate = this.postsData.count > 0 && this.images.length === 0;
+            this.isPrivate = this.images.length === 0;
           });
         } else {
           this.goPrev();

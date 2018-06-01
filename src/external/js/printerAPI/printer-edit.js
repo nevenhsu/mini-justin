@@ -34,6 +34,7 @@ var PRINTER;
 var isDownloading;
 var isFinish;
 var LANG;
+var errorStatus;
 
 function init() {
   //output = document.getElementById("output");
@@ -46,6 +47,8 @@ function init() {
   printerStatus = undefined;
   isFinish = false;
   Cookies.set('printer', 'false');
+  errorStatus = undefined;
+
 
   websocket = new WebSocket(wsUri);
 
@@ -448,6 +451,7 @@ DNP printerStatus
   -----------------------------*/
 
   if (data.result) {
+
     if (data.printer === 'HITI') {
       READY_STATUS = 0;
     } else {
@@ -475,9 +479,9 @@ DNP printerStatus
     if (data.printer === 'HITI') {
       //0x500 (1280) 卡紙
       if (data.printerStatus === 1024 || data.printerStatus === 1025) {
-        return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
+        // return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
       } else if (data.printerStatus === 769 || data.printerStatus === 768) {
-        return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
+        // return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
       }
       //else if(data.printerStatus === 4096)
       //	return window.location.replace('error.html?error=印表機錯誤 0x1000!'); //晶片錯誤
@@ -491,29 +495,32 @@ DNP printerStatus
           }, 5000);
         }
         else {
-          return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
+          // return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
         }
       }
       else if (data.printerStatus !== 0 && data.printerStatus !== 2) {
         //2 is busy
-        return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
+        // return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
       }
       else if (data.printerStatus === 2 && isPrinting === false) {
-        return window.location.replace('error.html?error=印表機狀態錯誤!');
+        // return window.location.replace('error.html?error=印表機狀態錯誤!');
       }
 
     }
     else {
       if (data.printerStatus === 65544 || data.printerStatus === 65552) {
-        return window.location.replace('error?error=' + data.printerStatus);
+        printerStatus = data.printerStatus;
+        // return window.location.replace('error?error=' + data.printerStatus);
       }
 
       else if (data.printerStatus === -2147483648) {
-        return window.location.replace('error?error=' + data.printerStatus);
+        printerStatus = data.printerStatus;
+        // return window.location.replace('error?error=' + data.printerStatus);
       }
 
       else if (data.printerStatus !== 65537 && data.printerStatus !== 65538) {
-        return window.location.replace('error?error=' + data.printerStatus);
+        printerStatus = data.printerStatus;
+        // return window.location.replace('error?error=' + data.printerStatus);
       }
     }
 
@@ -545,7 +552,7 @@ function checkPrinterPaper(data) {
       PAPER_OUT = 51;
 
     if (data.cnt < PAPER_OUT)
-      return window.location.replace('error.html?error=相紙已用完!');
+      // return window.location.replace('error.html?error=相紙已用完!');
 
     printer_paper_count = parseInt(data.cnt) - PAPER_OUT;
   }

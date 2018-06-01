@@ -40,7 +40,7 @@ const appRoutes: Routes = [
   {path: 'select', component: SelectComponent},
   {path: 'type', component: TypeComponent},
   {path: '', component: HomeComponent},
-  {path: '**', component: ErrorComponent},
+  {path: '**', component: ErrorComponent}
 ];
 
 export class MyHammerConfig extends HammerGestureConfig {

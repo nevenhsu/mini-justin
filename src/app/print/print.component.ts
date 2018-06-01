@@ -54,6 +54,7 @@ export class PrintComponent implements OnInit, OnDestroy {
 
   startPrint() {
     console.log('JESS: Start printing photos.');
+    sessionStorage.setItem('isPrintOk', 'ok');
     for (let i = 0; i < this.images.length; i++) {
       const IMAGE = this.images[i];
       setTimeout(() => {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Rx';
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent implements OnInit {
+export class ErrorComponent implements OnInit, OnDestroy {
   sub: Subscription;
   code: string;
   error: string;
@@ -34,6 +34,10 @@ export class ErrorComponent implements OnInit {
           this.code = `If retry didn't work. Restart computer and printer`;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   tap() {
