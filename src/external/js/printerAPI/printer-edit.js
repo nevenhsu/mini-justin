@@ -34,7 +34,6 @@ var PRINTER;
 var isDownloading;
 var isFinish;
 var LANG;
-var errorStatus;
 
 function init() {
   //output = document.getElementById("output");
@@ -46,9 +45,6 @@ function init() {
   isDownloading = false;
   printerStatus = undefined;
   isFinish = false;
-  Cookies.set('printer', 'false');
-  errorStatus = undefined;
-
 
   websocket = new WebSocket(wsUri);
 

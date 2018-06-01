@@ -1,5 +1,5 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -138,7 +138,7 @@ export class SearchService {
     this.prevUrl = { url: route.snapshot.routeConfig.path, queryParams: route.snapshot.queryParams};
   }
 
-  sendMiniUsage(keyword: string, quantity: number): Observable<object> {
+  sendUserData(keyword: string, quantity: number): Observable<object> {
     // http://app.memopresso.com/api/order/sendmini/{account}/{quantity}
     const BASE = environment.sendMini;
     const URL = `${BASE}/${keyword}/${quantity}`;

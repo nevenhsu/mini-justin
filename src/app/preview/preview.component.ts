@@ -175,10 +175,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
       default:
         keyword = 'no_value';
     }
-    
+
     const QUANTITY = this.imagesURL.length * 2;
     if (this.isDevMode) {keyword = 'test'; }
-    this.postSub = this.searchService.sendMiniUsage(keyword, QUANTITY).subscribe((data) => {
+    this.postSub = this.searchService.sendUserData(keyword, QUANTITY).subscribe((data) => {
       console.log('GET Done: ', data);
     }, (error) => {
       console.log('GET Error: ', error);

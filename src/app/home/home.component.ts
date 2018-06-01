@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   hashtag: Hashtag;
   isPrintOk?: string; // already print
-  trying = 0 ;
+  trying = 0 ; // count trying times
 
   constructor(private router: Router,
               private searchService: SearchService) { }
@@ -23,10 +23,6 @@ export class HomeComponent implements OnInit {
     this.getHashTag();
     this.searchService.clearImages();
     this.fistCheckPrinter();
-
-    const checking = setInterval(() => this.checkStatus(() => {
-      clearInterval(checking);
-    }), 2000);
   }
 
   async getHashTag() {
@@ -43,25 +39,30 @@ export class HomeComponent implements OnInit {
     this.isPrintOk = sessionStorage.getItem('isPrintOk');
     if (this.isPrintOk !== 'ok') {
       printer.init();
+      setTimeout(() => {
+        this.detectPrinterError();
+      }, 2000);
     }
   }
 
-  checkStatus(callback) {
-    const STATUS = printer.printerStatus;
-    if (STATUS !== 65537 || STATUS !== 0 || STATUS !== 2 || STATUS  !== 65538) {
-      this.trying++;
-      if (this.trying > 15) {
-        callback();
-        return;
+  detectPrinterError() {
+    const checking = setInterval(() => {
+      const STATUS = printer.printerStatus;
+      if (STATUS !== 65537 && STATUS !== 0 && STATUS !== 2 && STATUS  !== 65538) {
+        this.trying++;
+        if (this.trying > 15) {clearInterval(checking); }
+
+        // if error detect, then go to error page
+        const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512];
+        if (ERRORS.indexOf(STATUS) !== -1 ) {
+          clearInterval(checking);
+          this.router.navigate(['error'], {queryParams: {error: STATUS}});
+        }
+      } else {
+        // printer is idle or printing
+        clearInterval(checking);
       }
-      const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512];
-      if (ERRORS.indexOf(STATUS) !== -1 ) {
-        callback();
-        this.router.navigate(['error'], {queryParams: {error: STATUS}});
-      }
-    } else {
-      callback();
-    }
+    }, 2000);
   }
 
   goNext(entry: string) {
