@@ -35,7 +35,7 @@ export class PrintComponent implements OnInit, OnDestroy {
   }
 
   checkState() {
-    // 0 is ready, 65537 is idle
+    // 65537 is idle
     if (printer.printerStatus) {
       console.log('JESS: Websocket is ready.');
       setTimeout(() => {

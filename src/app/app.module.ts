@@ -12,6 +12,10 @@ import { NguCarouselModule } from '@ngu/carousel';
 import { InViewportModule } from 'ng-in-viewport';
 import 'hammerjs';
 
+import { SearchService } from 'shared/search.service';
+import { AutofocusDirective } from 'shared/autofocus.directive';
+import { ImageDimensionDirective } from 'shared/image-dimension.directive';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { TypeComponent } from './type/type.component';
@@ -25,10 +29,8 @@ import { PhotoComponent } from './preview/photo/photo.component';
 import { PrintComponent } from './print/print.component';
 import { KeyboardComponent } from './type/keyboard/keyboard.component';
 import { BubbleComponent } from 'shared/bubble/bubble.component';
-
-import { SearchService } from 'shared/search.service';
-import { AutofocusDirective } from 'shared/autofocus.directive';
-import { ImageDimensionDirective } from 'shared/image-dimension.directive';
+import { PrivacyErrorComponent } from './select/privacy-error/privacy-error.component';
+import { ErrorComponent } from './error/error.component';
 
 
 
@@ -38,7 +40,7 @@ const appRoutes: Routes = [
   {path: 'select', component: SelectComponent},
   {path: 'type', component: TypeComponent},
   {path: '', component: HomeComponent},
-  {path: '**', component: HomeComponent},
+  {path: '**', component: ErrorComponent},
 ];
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -76,6 +78,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     PrintComponent,
     KeyboardComponent,
     BubbleComponent,
+    PrivacyErrorComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

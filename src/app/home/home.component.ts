@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from 'shared/search.service';
+import * as printer from '../../external/js/printerAPI/printer-edit.js';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ export class HomeComponent implements OnInit {
   // TODO: restructure return url on service
 
   hashtag: Hashtag;
+  isFirst?: string; // is first open website, value == null
 
   constructor(private router: Router,
               private searchService: SearchService) { }
@@ -19,6 +21,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getHashTag();
     this.searchService.clearImages();
+    this.fistCheckPrinter();
   }
 
   async getHashTag() {
@@ -29,6 +32,18 @@ export class HomeComponent implements OnInit {
       return '';
     });
     localStorage.setItem('hashtagName', SearchService.getSafe(() =>  this.hashtag.name ));
+  }
+
+  fistCheckPrinter() {
+    this.isFirst = sessionStorage.getItem('isFirst');
+    if (!this.isFirst) {
+      sessionStorage.setItem('isFirst', 'set mark');
+      this.printerInit();
+    }
+  }
+
+  printerInit() {
+    printer.init();
   }
 
   goNext(entry: string) {

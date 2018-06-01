@@ -1,7 +1,7 @@
 <div class="wrapping">
 
 	<app-nav (tapLeftBtn)="goPrev()"
-			 [title]="isPrivate ? 'Error' : 'Select photos'"
+			 [title]="isPrivate ? 'This account can’t be use' : 'Select photos'"
 			 [isShowLeftBtn]="true"
 			 class="nav d-block"
 	></app-nav>
@@ -27,11 +27,11 @@
 
 
 			<div *ngIf="isPrivate"
-				 class="container-error position-absolute z-1070"
-			>
-				<img class="d-block" src="" />
-				<button class="btn-retry"></button>
+				 class="container-error position-absolute z-1070">
+				<app-privacy-error (tapReload)="tapReload()">
+				</app-privacy-error>
 			</div>
+
 		</div>
 		<div inViewport
 			 (inViewportAction)="reachBottom()"

@@ -58,7 +58,7 @@
   left: -2rem;
 }
 
-.container-image {
+.container-images {
   width: 100%;
   padding-top: 100%;
   overflow: hidden;
@@ -90,6 +90,8 @@
   left: 50%;
   transform: translate(-50%, 0);
   width: 180vw;
+  opacity: 1;
+  transition: all 0.25s ease-out;
 }
 
 .item {
@@ -158,6 +160,19 @@
           infinite
           none
           running;
+}
+
+.container-print {
+  top: 15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+  pointer-events: none;
+  transition: all 0.25s ease-out;
+}
+
+.hide {
+  opacity: 0;
 }
 
 @keyframes pulse {

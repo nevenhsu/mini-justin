@@ -3,7 +3,7 @@
 // }
 import * as Cookies from "../js.cookie.js";
 
-export {init, downloadImageCmd, printerStatus, setTotolImages, isFinish}
+export {init, downloadImageCmd, printerStatus, setTotolImages, isFinish }
 
 var wsUri = "ws://127.0.0.1:60089/";
 var output;
@@ -64,6 +64,8 @@ function init() {
   websocket.onerror = function (evt) {
     onError(evt)
   };
+
+
 }
 
 function setTotolImages(value) {
@@ -76,6 +78,7 @@ function onOpen(evt) {
   openStatus();
   //getPrintStatusCmd();
   //getRibbonCountCmd();
+
 }
 
 function onClose(evt) {
@@ -472,10 +475,8 @@ DNP printerStatus
     if (data.printer === 'HITI') {
       //0x500 (1280) 卡紙
       if (data.printerStatus === 1024 || data.printerStatus === 1025) {
-        alert('Error: paper out');
         return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
       } else if (data.printerStatus === 769 || data.printerStatus === 768) {
-        alert('Error: ribbon out');
         return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW);
       }
       //else if(data.printerStatus === 4096)
@@ -490,35 +491,29 @@ DNP printerStatus
           }, 5000);
         }
         else {
-          alert(`Error: printer isn't ready`);
           return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
         }
       }
       else if (data.printerStatus !== 0 && data.printerStatus !== 2) {
         //2 is busy
-        alert(`Error: printer isn't ready`);
         return window.location.replace('error.html?error=印表機未就緒!' + '(' + data.printerStatus + ')');
       }
       else if (data.printerStatus === 2 && isPrinting === false) {
-        alert(`Error: printer status is wrong`);
         return window.location.replace('error.html?error=印表機狀態錯誤!');
       }
 
     }
     else {
       if (data.printerStatus === 65544 || data.printerStatus === 65552) {
-        alert('Error: paper out or ribbon out');
-        return window.location.replace('error.html?error=' + LANG.ERROR_PAPER_LOW + '(' + data.printerStatus + ')');
+        return window.location.replace('error?error=' + data.printerStatus);
       }
 
       else if (data.printerStatus === -2147483648) {
-        alert(`Error: printer is offline`);
-        return window.location.replace('error.html?error=' + LANG.ERROR_PRINTER_OFFLIE);
+        return window.location.replace('error?error=' + data.printerStatus);
       }
 
       else if (data.printerStatus !== 65537 && data.printerStatus !== 65538) {
-        alert(`Error: printer status is wrong`);
-        return window.location.replace('error.html?error=' + LANG.ERROR_PRINTING);
+        return window.location.replace('error?error=' + data.printerStatus);
       }
     }
 

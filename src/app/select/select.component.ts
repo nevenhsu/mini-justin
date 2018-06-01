@@ -165,6 +165,9 @@ export class SelectComponent implements OnInit, OnDestroy {
     }
   }
 
+  tapReload() {
+    this.setPage();
+  }
 
 
 }

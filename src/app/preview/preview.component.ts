@@ -88,9 +88,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
     // call photo component export url data to replace photo url
     // photoDone is listening to photo isDone
     this.isPending = true;
-    this.photos.forEach(photo => {
-      photo.startExport();
-    });
+    this.sendUsageData();
+    setTimeout(() => {
+      this.photos.forEach(photo => {
+        photo.startExport();
+      });
+    }, 1000);
   }
 
   photoDone() {
@@ -114,9 +117,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
         if (this.searchService.imagesData.length === this.imagesURL.length) {
           console.log('Successfully export images data! ');
           this.isPending = false;
-          if (!this.isDevMode) {
-            this.router.navigate(['print']);
-          }
+          this.router.navigate(['print']);
         } else {
           this.isPending = false;
           console.log('ERROR: canvas exports are not completed! \n DataUrls Number:', this.searchService.imagesData.length);
@@ -151,6 +152,41 @@ export class PreviewComponent implements OnInit, OnDestroy {
     }).then(canvas => {
       const img = canvas.toDataURL('image/jpeg');
       callback(img);
+    });
+  }
+
+  sendUsageData() {
+    let keyword;
+    const ENTRY = SearchService.getSafe(() => this.searchService.prevUrl.queryParams['entry']) ||  undefined;
+    switch (ENTRY) {
+      case 'ig':
+        const USER = localStorage.getItem('user');
+        if (USER) {
+          const USERJSON = JSON.parse(USER); // parse json
+          keyword = USERJSON['username'] || USERJSON['pk'];
+        }
+        break;
+      case 'tag':
+        const TAG = SearchService.getSafe(() => this.searchService.prevUrl.queryParams['query']) || 'no_value';
+        keyword = TAG;
+        break;
+      default:
+        keyword = 'no_value';
+    }
+
+    this.searchService.sendMiniUsage({
+      price: 25 * this.imagesURL.length * 2,
+      discount: 0,
+      promo_code: '',
+      photoFrom: 'INSTAGRAM',
+      lab: 'MINI',
+      isHashTag: 0,
+      account: keyword,
+      campaign_id: '267',
+      status: 'FINISHED',
+      paid: 0,
+      payment: 'CASH',
+      quantity: this.imagesURL.length * 2
     });
   }
 

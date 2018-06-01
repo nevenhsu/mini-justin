@@ -137,6 +137,10 @@ export class SearchService {
     this.prevUrl = { url: route.snapshot.routeConfig.path, queryParams: route.snapshot.queryParams};
   }
 
+  sendMiniUsage(data) {
+    this.http.post(environment.sendMini, data);
+  }
+
 }
 
 

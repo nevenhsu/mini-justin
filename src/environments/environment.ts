@@ -8,11 +8,13 @@ export const environment = {
   hashtag: 'assets/hashtag.json',
   search: 'assets/search-result.json',
   hashtagImage: 'assets/image-hashtag.json',
-  IdImage: 'assets/error-private.json',
+  // IdImage: 'assets/error-private.json',
+  IdImage: 'assets/image-id.json',
   SESSION_ID: '',
   SESSION_ID2: '',
   QUERY_USERNAME: '',
-  QUERY_HASHTAG: ''
+  QUERY_HASHTAG: '',
+  sendMini: 'http://localhost:3000'
 };
 
 /*

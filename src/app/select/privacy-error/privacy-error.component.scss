@@ -1,0 +1,35 @@
+@import "../../shared/custom-variables";
+
+.text {
+  font-size: 30px;
+  letter-spacing: 0.22px;
+  line-height: 52px;
+}
+
+.btn-reload {
+  width: 22.5rem;
+  height: 5.5rem;
+  background-image: $gradient-primary;
+  border-radius: 3rem;
+  transition: all 0.25s ease-out;
+  &:active {
+    opacity: 0.5;
+  }
+
+  &:active .reload-image {
+    transform: rotate(270deg);
+  }
+}
+
+.reload-image {
+  top: 18px;
+  left: 40px;
+  transition: all 0.2s ease-out;
+}
+
+.reload-text {
+  padding-left: 12px;
+  font-size: 46px;
+  letter-spacing: 1.87px;
+  line-height: 62px;
+}

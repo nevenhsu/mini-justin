@@ -9,8 +9,14 @@
              [isShowLeftBtn]="true"
              class="nav"></app-nav>
 
+	<div [class.hide]="!isPending"
+		 class="container-print position-absolute z-1070">
+		<img width="629" src="assets/images/printing.gif"/>
+	</div>
+
 
 	<ngu-carousel [inputs]="carouselOne"
+				  [class.hide]="isPending"
 				  class="carousel"
 	>
 		<ngu-item NguCarouselItem
@@ -23,7 +29,7 @@
 					 [class.photo-right]="i % 2 !== 0"
 					 [class.photo-left]="i % 2 === 0"
 					 class="photo thin-border col-6">
-					<div class="container-image d-block position-relative mb-2">
+					<div class="container-images d-block position-relative mb-2">
 						<img class="image absolute-center" [src]="img.display_url" />
 					</div>
 					<p class="photo-text">{{ img.edge_media_to_caption?.edges[0]?.node?.text }}</p>

@@ -1,0 +1,17 @@
+<div class="background-pattern absolute-center background-cover z-0 position-fixed"></div>
+
+<div class="row text-center">
+  <h1 class="title color-primary">Oops! Something goes wrong.</h1>
+</div>
+
+<div class="row">
+  <button (tap)="tap()"
+          class="btn-reload position-relative d-block m-auto">
+    <img class="reload-image position-absolute" width="50" src="assets/images/icons/icon_reload.svg" />
+    <h1 class="reload-text color-white font-weight-bold d-inline">Retry</h1>
+  </button>
+</div>
+
+<div class="row mt-5">
+  <p class="color-black m-auto text-center">Error code: <br>{{code}}.</p>
+</div>
