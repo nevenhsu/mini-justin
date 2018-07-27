@@ -22,16 +22,16 @@ export class ErrorComponent implements OnInit, OnDestroy {
       console.log(this.error);
       switch (this.error) {
         case '65544':
-          this.code = 'Paper low. Please add paper';
+          this.code = 'Paper low. Please add papers.';
           break;
         case '65552':
-          this.code = 'Ribbon low. Please change ribbon';
+          this.code = 'Ribbon low. Please change ribbons.';
           break;
         case '-2147483648':
-          this.code = `If retry didn't work. Restart printer and check connection`;
+          this.code = `If retry didn't work. Restart printer and check connection.`;
           break;
         default:
-          this.code = `If retry didn't work. Restart computer and printer`;
+          this.code = `If retry didn't work. Restart printer or computer.`;
       }
     });
   }

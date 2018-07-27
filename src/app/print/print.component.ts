@@ -45,20 +45,18 @@ export class PrintComponent implements OnInit, OnDestroy {
       }, 500);
       this.checkPrintFinish();
 
-    } else {
-
-      // if occurs error, then go to error page
-      const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512];
-      if (ERRORS.indexOf(STATUS) !== -1 ) {
-        this.router.navigate(['error'], {queryParams: {error: STATUS}});
-        sessionStorage.setItem('isPrintOk', 'no');
-        return;
-      }
-
+    } else if (STATUS === 65538 || STATUS === 2 || !STATUS) {
       // wait websocket connected and retry
       setTimeout(() => {
         this.checkState();
       }, 1000);
+    } else {
+      // if occurs error, then go to error page
+      // const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512];
+      // if (ERRORS.indexOf(STATUS) !== -1 ) {
+      this.router.navigate(['error'], {queryParams: {error: STATUS}});
+      sessionStorage.setItem('isPrintOk', 'no');
+      // return;
     }
   }
 

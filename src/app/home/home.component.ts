@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getHashTag();
     this.searchService.clearImages();
-    this.fistCheckPrinter();
+    this.firstCheckPrinter();
   }
 
   async getHashTag() {
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('hashtagName', SearchService.getSafe(() =>  this.hashtag.name ));
   }
 
-  fistCheckPrinter() {
+  firstCheckPrinter() {
     this.isPrintOk = sessionStorage.getItem('isPrintOk');
     if (this.isPrintOk !== 'ok') {
       printer.init();
@@ -48,16 +48,21 @@ export class HomeComponent implements OnInit {
   detectPrinterError() {
     const checking = setInterval(() => {
       const STATUS = printer.printerStatus;
-      if (STATUS !== 65537 && STATUS !== 0 && STATUS !== 2 && STATUS  !== 65538) {
-        this.trying++;
-        if (this.trying > 15) {clearInterval(checking); }
+      console.log('JESS: detect Printer Status: ', STATUS);
+
+      if (STATUS !== 65537 && STATUS !== 65538 && STATUS !== 0 && STATUS !== 2 && !!STATUS) {
+        // this.trying++;
+        // if (this.trying > 15) {clearInterval(checking); }
 
         // if error detect, then go to error page
-        const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512];
-        if (ERRORS.indexOf(STATUS) !== -1 ) {
+        // const ERRORS = [65544, 65552, -2147483648, 1024, 769, 1025, 768, 4096, 31, 524288, 512, 65664];
+        // if (ERRORS.indexOf(STATUS) !== -1 ) {
           clearInterval(checking);
           this.router.navigate(['error'], {queryParams: {error: STATUS}});
-        }
+        // }
+      } else if (!STATUS) {
+        // printer is not connected
+        return;
       } else {
         // printer is idle or printing
         clearInterval(checking);
