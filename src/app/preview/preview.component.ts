@@ -76,6 +76,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
 
   goPrev() {
+    if (this.isPending) {return; }
     const URL = SearchService.getSafe(() => this.searchService.prevUrl.url);
     const QUERY = SearchService.getSafe(() => this.searchService.prevUrl.queryParams);
     if (URL && QUERY) {

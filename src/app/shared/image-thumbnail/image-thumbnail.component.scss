@@ -10,6 +10,11 @@
   border-radius: 2px;
 }
 
+.image-placeholder {
+  @extend .image;
+  width: 99%;
+}
+
 .container-cal {
   width: 100%;
   top: 47.5%;

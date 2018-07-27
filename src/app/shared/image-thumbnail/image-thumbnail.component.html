@@ -1,5 +1,6 @@
 <div [class.shadow]="quantity > 0"
-     class="photo position-relative m-0">
+     class="photo rounded position-relative m-0">
+  <img class="image-placeholder rounded position-absolute absolute-center d-block" src="assets/images/logo_memo_ph.png"/>
   <img class="image position-absolute absolute-center d-block" [src]="image.thumbnail_src"/>
 
   <div class="container-cal text-center position-absolute absolute-center">
@@ -12,5 +13,6 @@
 
   <div *ngIf="!quantity"
        (tap)="add()"
-       class="cover absolute-center position-absolute"></div>
+       class="cover absolute-center position-absolute">
+  </div>
 </div>

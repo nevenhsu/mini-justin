@@ -83,6 +83,12 @@
   right: 6px;
 }
 
+.split {
+  width: 1px;
+  height: 100%;
+  background-color: $color-grey;
+  left: 49.75%;
+}
 
 .carousel {
   position: absolute;

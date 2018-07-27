@@ -25,6 +25,7 @@ export class SelectComponent implements OnInit, OnDestroy {
   postsData: PostsData; // store the newest data for updating view
   user?: User; // get selected user name from local storage
   hashtagName?: string; // get hashtag from local storage
+  imageHolders = Array(20).fill(0);
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -94,7 +95,7 @@ export class SelectComponent implements OnInit, OnDestroy {
           this.picUrl = this.user.profile_pic_url;
           this.getPostImages(() => {
             // detect if account is private
-            this.isPrivate = this.postsData.count > 0 && this.images.length === 0;
+            this.isPrivate = this.user.is_private && this.images.length === 0;
           });
         } else {
           this.goPrev();

@@ -1,13 +1,23 @@
 <div class="row m-0">
   <div class="row col-10 offset-1">
-    <div (tap)="onTapAccount(user)"
-         *ngFor="let user of users"
-         class="user row col-4">
-      <div class="photo col-4 p-0 pr-2"><img width="100%" [src]="user.profile_pic_url" /></div>
-      <div class="col-8">
-        <h4 class="name color-black pt-3 font-weight-semibold">{{ user.full_name }}</h4>
-        <p class="color-grey-light font-weight-semibold">{{ user.byline }}</p>
+
+    <ng-container *ngIf="!isLoading; else loading">
+      <div (tap)="onTapAccount(user)"
+           *ngFor="let user of users"
+           class="user row col-4">
+        <div class="photo col-4 p-0 pr-2"><img width="100%" [src]="user.profile_pic_url" /></div>
+        <div class="col-8">
+          <h4 class="name color-black pt-3 font-weight-semibold">{{ user.full_name }}</h4>
+          <p class="color-grey-light font-weight-semibold">{{ user.byline }}</p>
+        </div>
       </div>
-    </div>
+    </ng-container>
+
   </div>
 </div>
+
+<ng-template #loading>
+  <div class="w-25 mx-auto mt-5">
+    <img class="d-block w-100 mt-5" src="assets/images/loading-square.svg"/>
+  </div>
+</ng-template>

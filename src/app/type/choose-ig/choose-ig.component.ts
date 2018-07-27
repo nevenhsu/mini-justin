@@ -10,6 +10,7 @@ export class ChooseIgComponent implements OnInit {
   @Input('query') query: string;
   @Output('tapAccount') tapAccount = new EventEmitter();
   users: Array<User> = [];
+  isLoading: boolean;
 
   constructor(private searchService: SearchService) { }
 
@@ -18,7 +19,10 @@ export class ChooseIgComponent implements OnInit {
   }
 
   async getUsers() {
+		this.isLoading = true;
+
     this.users = await this.searchService.getSearch(this.query).then(res => {
+			this.isLoading = false;
       if (res['status'] === 'ok') {
         return res['users'].map(value => {
           return value['user'];

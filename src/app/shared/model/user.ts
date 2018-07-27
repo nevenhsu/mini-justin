@@ -21,4 +21,5 @@ interface User {
   profile_pic_id?: string;
   follower_count?: number;
   byline?: string;
+  is_private?: boolean;
 }
