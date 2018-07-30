@@ -12,6 +12,7 @@ import * as printer from '../../external/js/printerAPI/printer-edit.js';
 export class PrintComponent implements OnInit, OnDestroy {
   images: Array<string> = [];
   duration: number; // seconds of progress bar
+  CHECKFINISH: any;
 
   constructor(private searchService: SearchService,
               private router: Router) { }
@@ -32,12 +33,14 @@ export class PrintComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // reset printer state to false
     this.searchService.clearImages();
+
+    if (this.CHECKFINISH) {clearInterval(this.CHECKFINISH); }
   }
 
   checkState() {
     const STATUS = printer.printerStatus;
     // 65537 or 0 is idle
-    if (STATUS === 65537 || STATUS === 0) {
+    if (STATUS === 65537 || STATUS === 0 || STATUS === 65664) {
       console.log('JESS: Printer is ready.');
 
       setTimeout(() => {
@@ -83,11 +86,13 @@ export class PrintComponent implements OnInit, OnDestroy {
 
   checkPrintFinish() {
     setTimeout( () => {
-      const CHECKFINISH = setInterval( () => {
-        console.log('JESS: check isFinish state');
+      this.CHECKFINISH = setInterval( () => {
+        console.log('JESS: check isFinish state.');
+
         if (printer.isFinish) {
-          clearInterval(CHECKFINISH);
+          clearInterval(this.CHECKFINISH );
           this.transitionEnd();
+          return;
         }
       }, 2000);
     }, 10000 * this.images.length);

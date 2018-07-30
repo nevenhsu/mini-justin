@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
       const STATUS = printer.printerStatus;
       console.log('JESS: detect Printer Status: ', STATUS);
 
-      if (STATUS !== 65537 && STATUS !== 65538 && STATUS !== 0 && STATUS !== 2 && !!STATUS) {
+      if (STATUS !== 65537 && STATUS !== 65538 && STATUS !== 0 && STATUS !== 2 && STATUS !== 65664 && !!STATUS) {
         // this.trying++;
         // if (this.trying > 15) {clearInterval(checking); }
 
